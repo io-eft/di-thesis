@@ -49,3 +49,5 @@ gem 'devise'
 gem 'cancancan'
 gem 'rolify'
 gem 'bootstrap-sass', '~> 3.3.5'
+
+gem 'sprockets'
