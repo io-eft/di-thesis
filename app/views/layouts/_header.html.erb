@@ -8,7 +8,8 @@
         <li><a href="/pages/help.html" target="_self">Help</a></li>
         <% if(user_signed_in?) %>
           <% if(current_user.admin?) %>
-            <%= link_to "Manage Courses", 
+            <li><%= link_to "Manage Courses", lessons_path %></li>
+          <% end %>
           <li><%= link_to "Log out", destroy_user_session_path, :method => :delete %></li>
         <% else %>
           <li><%= link_to "Sign in", user_session_path %></li>
