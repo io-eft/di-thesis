@@ -4,7 +4,7 @@ class LessonsController < ApplicationController
   # GET /lessons
   # GET /lessons.json
   def index
-    @lessons = Lesson.all
+    @lessons = Lesson.all.paginate(page: params[:page], per_page: 5)
   end
 
   # GET /lessons/1

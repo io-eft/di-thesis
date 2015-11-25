@@ -1,7 +1,29 @@
 <p id="notice"><%= notice %></p>
 
 <h1>Manage Courses</h1>
-  <!--
+<%= will_paginate @lessons %>
+<table class="table">
+  <thead>
+  <tr>
+    <th>Name</th>
+    <th style="text-align:right;">Lecturer</th>
+    <th style="text-align:right;">Students</th>
+  </tr>
+  </thead>
+  <tbody>
+  <% @lessons.each do |lesson| %>
+      <tr>
+        <td><%= link_to lesson.name, lesson %></td>
+        <td style="text-align:right;"><%= lesson.name %></td>
+        <td style="text-align:right;"><%= lesson.name %></td>
+      </tr>
+  <% end %>
+  </tbody>
+</table>
+<%= will_paginate @products %>
+
+
+<% if false %>
   <table>
     <thead>
       <tr>
@@ -20,6 +42,8 @@
     </tbody>
   </table>
 
-  <br> -->
+<% end %>
+
+  <br>
 
 <%= link_to 'New Course', new_lesson_path, :class => "btn bnt-lg btn-success" %>
