@@ -5,6 +5,10 @@ class LessonsController < ApplicationController
   # GET /lessons.json
   def index
     @lessons = Lesson.all.paginate(page: params[:page], per_page: 5)
+    @professors = {}
+    @lessons.each do |l|
+      @professors[l.id] = User.find(l.lecturer_id).email unless l.lecturer_id == nil
+    end
   end
 
   # GET /lessons/1

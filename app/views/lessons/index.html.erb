@@ -14,7 +14,7 @@
   <% @lessons.each do |lesson| %>
       <tr>
         <td><%= link_to lesson.name, lesson %></td>
-        <td style="text-align:right;"><%= lesson.name %></td>
+        <td style="text-align:right;"><%= @professors[lesson.id] %></td>
         <td style="text-align:right;"><%= lesson.name %></td>
       </tr>
   <% end %>
