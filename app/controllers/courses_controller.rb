@@ -6,8 +6,10 @@ class CoursesController < ApplicationController
   def index
     @courses = Course.all.paginate(page: params[:page], per_page: 5)
     @professors = {}
+    @attending = {}
     @courses.each do |c|
-      @professors[c.id] = User.find(c.lecturer_id).email unless c.lecturer_id == nil
+      @professors[c.id] = User.find(c.lecturer_id) unless c.lecturer_id == nil
+      @attending[c.id] = StudentAttendsCourse.where(course_id: c.id).count
     end
   end
 
@@ -73,6 +75,6 @@ class CoursesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def course_params
-      params.require(:course).permit(:name, :professor_id)
+      params.require(:course).permit(:name, :lecturer_id)
     end
 end

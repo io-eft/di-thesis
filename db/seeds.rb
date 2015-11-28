@@ -6,7 +6,23 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
-users = User.create([{name: "FirstName", surname: "Surname", email: 'admin@di.uoa.gr', password: 'admin12345'}, {name: "FirstName", surname: "Surname", email: 'sdi0600296@di.uoa.gr', password: 'abcde12345'}, {name: "FirstName", surname: "Surname", email: 'professor@di.uoa.gr', password: 'abcde12345'}])
+users = User.create([
+  {name: "FirstName", surname: "Surname", email: 'admin@di.uoa.gr', password: 'admin12345'},
+  {name: "FirstName", surname: "Surname", email: 'sdi0600296@di.uoa.gr', password: 'abcde12345'},
+  {name: "FirstName", surname: "Surname", email: 'professor@di.uoa.gr', password: 'abcde12345'},
+  {name: "FirstName", surname: "Surname", email: 'sdi0600297@di.uoa.gr', password: 'abcde12345'}
+  ])
+
 users[0].add_role :admin
 users[2].add_role :professor
-Course.create(code: "C01", name: 'Introduction to Programming', lecturer_id: users[2].id)
+
+courses = Course.create([
+  {code: "C01", name: 'Introduction to Programming', lecturer_id: users[2].id},
+  {code: "C02", name: 'Introduction to Programming 2', lecturer_id: users[2].id}
+  ])
+
+StudentAttendsCourse.create([
+  {user_id: users[1].id, course_id: courses[0].id},
+  {user_id: users[3].id, course_id: courses[0].id},
+  {user_id: users[1].id, course_id: courses[1].id}
+  ])

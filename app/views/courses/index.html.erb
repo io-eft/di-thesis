@@ -5,17 +5,19 @@
 <table class="table">
   <thead>
   <tr>
+    <th>Code</th>
     <th>Name</th>
-    <th style="text-align:right;">Lecturer</th>
-    <th style="text-align:right;">Students</th>
+    <th style="text-align:left;">Lecturer</th>
+    <th style="text-align:right;">Students Attending</th>
   </tr>
   </thead>
   <tbody>
   <% @courses.each do |course| %>
       <tr>
+        <td><%= course.code %></td>
         <td><%= link_to course.name, course %></td>
-        <td style="text-align:right;"><%= @professors[course.id] %></td>
-        <td style="text-align:right;"><%= course.name %></td>
+        <td style="text-align:left;"><%= "#{@professors[course.id].surname} #{@professors[course.id].name}" %></td>
+        <td style="text-align:right;"><%= @attending[course.id] %></td>
       </tr>
   <% end %>
   </tbody>
