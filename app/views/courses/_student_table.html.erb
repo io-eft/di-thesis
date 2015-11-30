@@ -1,0 +1,29 @@
+<%= will_paginate @courses %>
+<table class="table">
+  <thead>
+  <tr>
+    <th>Code</th>
+    <th colspan="2">Name</th>
+    <th style="text-align:left;" colspan="2">Lecturer</th>
+    <th style="text-align:right; colspan="2"">Students Attending</th>
+    <th></th>
+  </tr>
+  </thead>
+  <tbody>
+  <% @courses.each do |course| %>
+      <tr>
+        <td><%= course.code %></td>
+        <td colspan="2"><%= link_to course.name, course %></td>
+        <td style="text-align:left;" colspan="2"><%= "#{@professors[course.id].surname} #{@professors[course.id].name}" %></td>
+        <td style="text-align:right;" colspan="2"><%= @attending[course.id] %></td>
+        <td>
+          <% if(@enrolled.include?(course.id)) %>
+            <%= link_to 'Withdraw', course, method: :withdraw, data: { confirm: 'Are you sure?'}, :class => "btn bnt-lg btn-danger" %>
+          <% else %>
+            <%= link_to 'Enroll', course, method: :enroll, :class => "btn bnt-lg btn-success" %>
+          <% end %>
+        </td>
+      </tr>
+  <% end %>
+  </tbody>
+</table>

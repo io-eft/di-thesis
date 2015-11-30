@@ -1,5 +1,7 @@
 class CoursesController < ApplicationController
   before_action :set_course, only: [:show, :edit, :update, :destroy]
+  before_action :verify_admin, only: [:new, :destroy]
+  before_action :verify_rights, only: [:edit, :update]
 
   # GET /courses
   # GET /courses.json
@@ -10,6 +12,10 @@ class CoursesController < ApplicationController
     @courses.each do |c|
       @professors[c.id] = User.find(c.lecturer_id) unless c.lecturer_id == nil
       @attending[c.id] = StudentAttendsCourse.where(course_id: c.id).count
+    end
+
+    if(current_user != nil && current_user.is_undergrad?)
+      @enrolled = StudentAttendsCourse.where(user_id: current_user.id).pluck(:course_id)
     end
   end
 
@@ -57,6 +63,13 @@ class CoursesController < ApplicationController
     end
   end
 
+  def enroll
+    @StudentAttendsCourse.create(course_id: @course.id, user_id: current_user.id)
+  end
+
+  def withdraw
+  end
+
   # DELETE /courses/1
   # DELETE /courses/1.json
   def destroy
@@ -71,6 +84,18 @@ class CoursesController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_course
       @course = Course.find(params[:id])
+    end
+
+    def verify_admin
+      unless(current_user != nil && current_user.is_admin?)
+        render file: 'public/403', :status => :forbidden
+      end
+    end
+
+    def verify_rights
+      unless(current_user.is_admin? || current_user.id == @course.lecturer_id)
+        render file: 'public/403', :status => :forbidden
+      end
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

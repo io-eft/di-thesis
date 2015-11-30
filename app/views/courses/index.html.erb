@@ -1,29 +1,41 @@
 <p id="notice"><%= notice %></p>
 
 <h1>Manage Courses</h1>
+<% if(current_user.is_admin?) %>
+  <%= render partial: "admin_table" %>
+<% elsif(current_user.is_professor?) %>
+  <%= render partial: "professor_table" %>
+<% else %>
+  <%= render partial: "student_table" %>
+<% end %>
+
+<% if false %>
+<div>Old Part</div>
 <%= will_paginate @courses %>
 <table class="table">
   <thead>
   <tr>
     <th>Code</th>
-    <th>Name</th>
-    <th style="text-align:left;">Lecturer</th>
+    <th colspan="2">Name</th>
+    <th style="text-align:left;" colspan="2">Lecturer</th>
     <th style="text-align:right;">Students Attending</th>
+    <th></th>
   </tr>
   </thead>
   <tbody>
   <% @courses.each do |course| %>
       <tr>
         <td><%= course.code %></td>
-        <td><%= link_to course.name, course %></td>
-        <td style="text-align:left;"><%= "#{@professors[course.id].surname} #{@professors[course.id].name}" %></td>
-        <td style="text-align:right;"><%= @attending[course.id] %></td>
+        <td colspan="2"><%= link_to course.name, course %></td>
+        <td style="text-align:left;" colspan="2"><%= "#{@professors[course.id].surname} #{@professors[course.id].name}" %></td>
+        <td style="text-align:right;" colspan="2"><%= @attending[course.id] %></td>
+        <td>Manage Course</td>
       </tr>
   <% end %>
   </tbody>
 </table>
 <%= will_paginate @products %>
-
+<% end %>
 
 <% if false %>
   <table>
@@ -47,5 +59,3 @@
 <% end %>
 
   <br>
-
-<%= link_to 'New Course', new_course_path, :class => "btn bnt-lg btn-success" %>
