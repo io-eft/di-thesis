@@ -1,5 +1,5 @@
 <%= will_paginate @courses %>
-<table class="table">
+<table class="table table-hover">
   <thead>
   <tr>
     <th>Code</th>
@@ -18,8 +18,8 @@
         <td style="text-align:right;" colspan="2"><%= @attending[course.id] %></td>
         <td>
           <% if(current_user.id == course.lecturer_id) %>
-            <%= link_to 'Manage', edit_course_path(course), :class => "btn bnt-lg btn-info" %>
-            
+            <%= link_to 'Manage', course_manage_path(course), :class => "btn bnt-lg btn-primary btn-block" %>
+
           <% end %>
         </td>
       </tr>

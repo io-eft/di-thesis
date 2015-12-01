@@ -1,3 +1,6 @@
+<p id="notice"><%= notice %></p>
+
+<h1 class="pull-left">My Courses</h1>
 <%= will_paginate @courses %>
 <table class="table table-hover">
   <thead>
@@ -5,8 +8,6 @@
     <th>Code</th>
     <th colspan="2">Name</th>
     <th style="text-align:left;" colspan="2">Lecturer</th>
-    <th style="text-align:right; colspan="2"">Students Attending</th>
-    <th></th>
     <th></th>
   </tr>
   </thead>
@@ -16,12 +17,8 @@
         <td><%= course.code %></td>
         <td colspan="2"><%= link_to course.name, course %></td>
         <td style="text-align:left;" colspan="2"><%= "#{@professors[course.id].surname} #{@professors[course.id].name}" %></td>
-        <td style="text-align:right;" colspan="2"><%= @attending[course.id] %></td>
-        <td><%= link_to 'Edit', edit_course_path(course), :class => "btn bnt-lg btn-warning btn-block" %></td>
-        <td><%= link_to 'Destroy', course, method: :delete, data: { confirm: 'Are you sure?'}, :class => "btn bnt-lg btn-danger btn-block" %></td>
+        <td><%= link_to 'Withdraw', course, method: :withdraw, data: { confirm: 'Are you sure?'}, :class => "btn bnt-lg btn-danger btn-block" %></td>
       </tr>
   <% end %>
   </tbody>
 </table>
-
-<%= link_to 'New Course', new_course_path, :class => "btn bnt-lg btn-success" %>

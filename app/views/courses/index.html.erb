@@ -1,11 +1,14 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Manage Courses</h1>
+
 <% if(current_user.is_admin?) %>
+  <h1 class="pull-left">Manage Courses</h1>
   <%= render partial: "admin_table" %>
 <% elsif(current_user.is_professor?) %>
+  <h1 class="pull-left">View Courses</h1>
   <%= render partial: "professor_table" %>
 <% else %>
+  <h1 class="pull-left">All Courses</h1>
   <%= render partial: "student_table" %>
 <% end %>
 

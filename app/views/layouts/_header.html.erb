@@ -9,6 +9,11 @@
         <% if(user_signed_in?) %>
           <% if(current_user.is_admin?) %>
             <li><%= link_to "Manage Courses", courses_path %></li>
+          <% elsif(current_user.is_professor?) %>
+            <li><%= link_to "View Courses", courses_path %></li>
+          <% elsif(current_user.is_undergrad?) %>
+            <li><%= link_to "All Courses", courses_path %></li>
+            <li><%= link_to "My Courses", my_courses_path %></li>
           <% end %>
           <li><%= link_to "Log out", destroy_user_session_path, :method => :delete %></li>
         <% else %>

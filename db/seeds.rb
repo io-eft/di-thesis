@@ -8,10 +8,10 @@
 
 users = User.create([
   {name: "FirstName", surname: "Surname", email: 'admin@di.uoa.gr', password: 'admin12345'},
-  {name: "FirstName", surname: "Surname", email: 'sdi0600296@di.uoa.gr', password: 'abcde12345'},
-  {name: "FirstName", surname: "Surname", email: 'professor@di.uoa.gr', password: 'abcde12345'},
-  {name: "FirstName", surname: "Surname", email: 'sdi0600297@di.uoa.gr', password: 'abcde12345'},
-  {name: "FirstName", surname: "Surname", email: 'professor2@di.uoa.gr', password: 'abcde12345'}
+  {name: "FirstName", surname: "Surname", email: 'sdi0600296@di.uoa.gr', password: 'admin12345'},
+  {name: "FirstName", surname: "Surname", email: 'professor@di.uoa.gr', password: 'admin12345'},
+  {name: "FirstName", surname: "Surname", email: 'sdi0600297@di.uoa.gr', password: 'admin12345'},
+  {name: "FirstName", surname: "Surname", email: 'professor2@di.uoa.gr', password: 'admin12345'}
   ])
 
 users[0].add_role :admin

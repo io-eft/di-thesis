@@ -1,5 +1,5 @@
 <%= will_paginate @courses %>
-<table class="table">
+<table class="table table-hover">
   <thead>
   <tr>
     <th>Code</th>
@@ -18,9 +18,9 @@
         <td style="text-align:right;" colspan="2"><%= @attending[course.id] %></td>
         <td>
           <% if(@enrolled.include?(course.id)) %>
-            <%= link_to 'Withdraw', course, method: :withdraw, data: { confirm: 'Are you sure?'}, :class => "btn bnt-lg btn-danger" %>
+            <%= link_to 'Withdraw', course, method: :withdraw, data: { confirm: 'Are you sure?'}, :class => "btn bnt-lg btn-danger btn-block" %>
           <% else %>
-            <%= link_to 'Enroll', course, method: :enroll, :class => "btn bnt-lg btn-success" %>
+            <%= link_to 'Enroll', course, method: :enroll, :class => "btn bnt-lg btn-success btn-block" %>
           <% end %>
         </td>
       </tr>
