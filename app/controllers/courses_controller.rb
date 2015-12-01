@@ -90,7 +90,7 @@ class CoursesController < ApplicationController
   end
 
   def manage
-    
+
   end
 
   private
