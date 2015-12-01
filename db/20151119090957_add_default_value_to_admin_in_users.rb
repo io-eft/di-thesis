@@ -1,3 +1,4 @@
+=begin
 class AddDefaultValueToAdminInUsers < ActiveRecord::Migration
   def up
     change_column :users, :admin, :boolean, default: false
@@ -7,3 +8,4 @@ class AddDefaultValueToAdminInUsers < ActiveRecord::Migration
     change_column :users, :admin, :boolean, default: nil
   end
 end
+=end

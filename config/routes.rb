@@ -1,10 +1,12 @@
 Rails.application.routes.draw do
-  resources :lessons
+  get "my_courses" => "courses#my_courses"
+  resources :courses do
+    get "manage" => "courses#manage"
+  end
   resources :forums
   devise_for :users
 
   get "/pages/*page" => "pages#show"
-
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
@@ -60,4 +62,5 @@ Rails.application.routes.draw do
   #     resources :products
   #   end
   root "pages#show", page: "home"
+  get "*page" => "pages#show"
 end

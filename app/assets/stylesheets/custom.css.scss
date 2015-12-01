@@ -71,6 +71,20 @@ p {
   }
 }
 
+a:link, a:hover, a:visited, a:active {
+	color: #1a53ff;
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+a.btn {
+  color: #fcfcfc;
+}
+
+
 /* footer */
 
 footer {
@@ -96,15 +110,3 @@ footer {
     }
   }
 }
-// 
-// .btn {
-//   a {
-//     color: white;
-//     &:hover {
-//       color: white;
-//     }
-//     &:visited {
-//       color: white;
-//     }
-//   }
-// }

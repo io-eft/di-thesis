@@ -11,18 +11,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151119090957) do
+ActiveRecord::Schema.define(version: 20151119072000) do
+
+  create_table "courses", force: :cascade do |t|
+    t.string   "code",        null: false
+    t.string   "name",        null: false
+    t.integer  "lecturer_id"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
 
   create_table "forums", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-  end
-
-  create_table "lessons", force: :cascade do |t|
-    t.string   "name"
-    t.integer  "lecturer_id"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
   end
 
   create_table "roles", force: :cascade do |t|
@@ -36,30 +37,31 @@ ActiveRecord::Schema.define(version: 20151119090957) do
   add_index "roles", ["name", "resource_type", "resource_id"], name: "index_roles_on_name_and_resource_type_and_resource_id"
   add_index "roles", ["name"], name: "index_roles_on_name"
 
-  create_table "student_attends_lessons", force: :cascade do |t|
+  create_table "student_attends_courses", force: :cascade do |t|
     t.integer  "user_id"
-    t.integer  "lesson_id"
+    t.integer  "course_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
-  add_index "student_attends_lessons", ["lesson_id"], name: "index_student_attends_lessons_on_lesson_id"
-  add_index "student_attends_lessons", ["user_id"], name: "index_student_attends_lessons_on_user_id"
+  add_index "student_attends_courses", ["course_id"], name: "index_student_attends_courses_on_course_id"
+  add_index "student_attends_courses", ["user_id"], name: "index_student_attends_courses_on_user_id"
 
   create_table "users", force: :cascade do |t|
-    t.string   "email",                  default: "",    null: false
-    t.string   "encrypted_password",     default: "",    null: false
+    t.string   "name",                               null: false
+    t.string   "surname",                            null: false
+    t.string   "email",                              null: false
+    t.string   "encrypted_password",                 null: false
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",          default: 0,     null: false
+    t.integer  "sign_in_count",          default: 0, null: false
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
     t.string   "last_sign_in_ip"
-    t.datetime "created_at",                             null: false
-    t.datetime "updated_at",                             null: false
-    t.boolean  "admin",                  default: false
+    t.datetime "created_at",                         null: false
+    t.datetime "updated_at",                         null: false
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true
