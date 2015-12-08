@@ -2,6 +2,8 @@ Rails.application.routes.draw do
   get "my_courses" => "courses#my_courses"
   resources :courses do
     get "manage" => "courses#manage"
+    get "enroll" => :enroll, as: "enroll"
+    get "withdraw" => :withdraw, as: "withdraw"
   end
   resources :forums
   devise_for :users

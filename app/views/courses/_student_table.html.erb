@@ -18,9 +18,9 @@
         <td style="text-align:right;" colspan="2"><%= @attending[course.id] %></td>
         <td>
           <% if(@enrolled.include?(course.id)) %>
-            <%= link_to 'Withdraw', course, method: :withdraw, data: { confirm: 'Are you sure?'}, :class => "btn bnt-lg btn-danger btn-block" %>
+            <%= link_to 'Withdraw', course_withdraw_path(course), data: { confirm: 'Are you sure?'}, :class => "btn bnt-lg btn-danger btn-block" %>
           <% else %>
-            <%= link_to 'Enroll', course, method: :enroll, :class => "btn bnt-lg btn-success btn-block" %>
+            <%= link_to 'Enroll', course_enroll_path(course), {:class => "btn bnt-lg btn-success btn-block"} %>
           <% end %>
         </td>
       </tr>

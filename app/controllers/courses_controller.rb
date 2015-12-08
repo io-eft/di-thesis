@@ -3,7 +3,7 @@ class CoursesController < ApplicationController
   before_action :verify_admin, only: [:new, :destroy]
   before_action :verify_rights, only: [:edit, :update, :manage]
   before_action :get_professors, only: [:new, :edit]
-  before_action :verify_student, only: [:my_courses, :enroll]
+  before_action :verify_student, only: [:my_courses, :enroll, :withdraw]
   #after_action :get_professor_names, only: [:index, :my_courses]
 
   # GET /courses
@@ -71,10 +71,17 @@ class CoursesController < ApplicationController
   end
 
   def enroll
-    @StudentAttendsCourse.create(course_id: @course.id, user_id: current_user.id)
+    #c = params[:course_id]
+    #u = current_user.id
+    StudentAttendsCourse.create(course_id: params[:course_id], user_id: current_user.id)
+    redirect_to "/courses"#, notice: "enrolled!"
   end
 
   def withdraw
+    StudentAttendsCourse.where(course_id: params[:course_id], user_id: current_user.id).each do |s|
+      s.delete
+    end
+    redirect_to "/courses"#, notice: "withdrawn!"
   end
 
   # DELETE /courses/1
@@ -88,7 +95,7 @@ class CoursesController < ApplicationController
   end
 
   def my_courses
-    @courses = Course.where(id: StudentAttendsCourse.where(user_id: current_user.id)).paginate(page: params[:page], per_page: 5)
+    @courses = Course.where(id: StudentAttendsCourse.where(user_id: current_user.id).pluck(:course_id)).paginate(page: params[:page], per_page: 5)
     get_professor_names
   end
 
