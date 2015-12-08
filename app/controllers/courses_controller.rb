@@ -3,12 +3,15 @@ class CoursesController < ApplicationController
   before_action :verify_admin, only: [:new, :destroy]
   before_action :verify_rights, only: [:edit, :update, :manage]
   before_action :get_professors, only: [:new, :edit]
-  before_action :verify_student, only: [:my_courses]
+  before_action :verify_student, only: [:my_courses, :enroll]
   #after_action :get_professor_names, only: [:index, :my_courses]
 
   # GET /courses
   # GET /courses.json
   def index
+    if(current_user.nil?)
+      render file: 'public/403', :status => :forbidden
+    end
     @courses = Course.all.paginate(page: params[:page], per_page: 5)
     #@professors = {}
     @attending = {}
@@ -137,6 +140,6 @@ class CoursesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def course_params
-      params.require(:course).permit(:name, :lecturer_id)
+      params.require(:course).permit(:code, :name, :lecturer_id)
     end
 end
