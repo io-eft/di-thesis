@@ -71,8 +71,6 @@ class CoursesController < ApplicationController
   end
 
   def enroll
-    #c = params[:course_id]
-    #u = current_user.id
     StudentAttendsCourse.create(course_id: params[:course_id], user_id: current_user.id)
     redirect_to "/courses"#, notice: "enrolled!"
   end
