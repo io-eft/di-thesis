@@ -1,0 +1,3 @@
+<%= form_tag(course_withdraw_path(course), remote: true) do %>
+  <%= submit_tag "Withdraw", data: { confirm: "Are you sure?" }, class: "btn bnt-lg btn-danger btn-block" %>
+<% end %>

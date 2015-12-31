@@ -71,15 +71,25 @@ class CoursesController < ApplicationController
   end
 
   def enroll
-    StudentAttendsCourse.create(course_id: params[:course_id], user_id: current_user.id)
-    redirect_to "/courses"#, notice: "enrolled!"
+    @course = Course.find(params[:course_id])
+    StudentAttendsCourse.create(course_id: @course.id, user_id: current_user.id)
+    @attending = StudentAttendsCourse.where(course_id: @course.id).count
+      respond_to do |format|
+        format.html { redirect_to "/courses" }
+        format.js
+      end
   end
 
   def withdraw
-    StudentAttendsCourse.where(course_id: params[:course_id], user_id: current_user.id).each do |s|
+    @course = Course.find(params[:course_id])
+    StudentAttendsCourse.where(course_id: @course.id, user_id: current_user.id).each do |s|
       s.delete
     end
-    redirect_to "/courses"#, notice: "withdrawn!"
+    @attending = StudentAttendsCourse.where(course_id: @course.id).count
+      respond_to do |format|
+        format.html { redirect_to "/courses" }
+        format.js
+      end
   end
 
   # DELETE /courses/1

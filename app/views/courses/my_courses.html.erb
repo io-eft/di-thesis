@@ -18,6 +18,8 @@
         <td colspan="2"><%= link_to course.name, course %></td>
         <td style="text-align:left;" colspan="2"><%= "#{@professors[course.id].surname} #{@professors[course.id].name}" %></td>
         <td><%= link_to 'Withdraw', course_withdraw_path(course), data: { confirm: 'Are you sure?'}, :class => "btn bnt-lg btn-danger btn-block" %></td>
+        
+
         <% if false %>
         <td><%= link_to 'Withdraw', course, method: :withdraw, data: { confirm: 'Are you sure?'}, :class => "btn bnt-lg btn-danger btn-block" %></td>
         <% end %>

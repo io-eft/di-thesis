@@ -1,0 +1,3 @@
+$("#abcd").html("it works!");
+$('<%= "#course_#{@course.id}_att" %>').html('<%= "#{@attending}" %>');
+$('<%= "#course_#{@course.id}" %>').html("<%= escape_javascript(render :partial => 'withdraw', locals: {course: @course}) %>")
