@@ -5,7 +5,7 @@
     <th>Code</th>
     <th colspan="2">Name</th>
     <th style="text-align:left;" colspan="2">Lecturer</th>
-    <th style="text-align:right; colspan="2"">Students Attending</th>
+    <th style="text-align:right;" colspan="2">Students Attending</th>
     <th></th>
   </tr>
   </thead>
@@ -17,9 +17,8 @@
         <td style="text-align:left;" colspan="2"><%= "#{@professors[course.id].surname} #{@professors[course.id].name}" %></td>
         <td style="text-align:right;" colspan="2"><%= @attending[course.id] %></td>
         <td>
-          <% if(current_user.id == course.lecturer_id) %>
+          <% if is_course_professor?(course) %>
             <%= link_to 'Manage', course_manage_path(course), :class => "btn bnt-lg btn-primary btn-block" %>
-
           <% end %>
         </td>
       </tr>

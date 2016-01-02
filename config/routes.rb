@@ -1,10 +1,20 @@
 Rails.application.routes.draw do
+  get 'announcement/title:string'
+
+  get 'announcement/message:string'
+
+  get 'announcement/user:references'
+
+  get 'announcement/course:references'
+
   get "my_courses" => "courses#my_courses"
   resources :courses do
     get "manage" => "courses#manage"
     post "enroll" => :enroll, as: "enroll"
     post "withdraw" => :withdraw, as: "withdraw"
-    resources :announcements
+    resources :announcements do
+#      post "new"
+    end
   end
   resources :forums
   devise_for :users

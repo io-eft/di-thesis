@@ -1,4 +1,56 @@
 <p id="notice"><%= notice %></p>
+<div class="page-header">
+  <h1 class="text-left">
+    <%= "#{@course.code} - #{@course.name}" %>
+    <br/>
+    <small><%= "#{@lecturer.surname} #{@lecturer.name}" %></small>
+  </h1>
+</div>
+<div class="container">
+  <ul class="nav nav-tabs nav-justified">
+    <li class="active"><a data-toggle="tab" href="#menu1">Description</a></li>
+    <li><a data-toggle="tab" href="#menu2">Announcements</a></li>
+    <li><a data-toggle="tab" href="#menu3">Menu 2</a></li>
+  </ul>
 
-<%= link_to 'Edit', edit_course_path(@course) %> |
-<%= link_to 'Back', courses_path %>
+  <div class="tab-content">
+    <div id="menu1" class="tab-pane fade in active">
+      <div class="page-header">
+        <h3 class="text-left">Description</h3>
+      </div>
+      <%= @course.description %>
+    </div>
+    <div id="menu2" class="tab-pane fade">
+      <div class="page-header">
+        <h3 class="text-left">Announcements</h3>
+      </div>
+      <% @course.announcements.each do |ann| %>
+        <div class="panel panel-default">
+        <div id='<%= "announcement_#{ann.id}_title" %>' class="panel-body"><%= ann.title %><div style="float: right;"><%= ann.updated_at.strftime("%m/%d/%Y") %></div>
+          <div id='<%= "announcement_#{ann.id}_message" %>' class="collapse well well-lg">
+            <%= ann.message %>
+          </div>
+        </div>
+      </div>
+      <% end %>
+      <% if is_course_professor?(@course) %>
+        <%= form_tag(course_announcements_path(@course), remote: true) do %>
+          <%= submit_tag "New Announcement", class: "btn bnt-lg btn-success btn-block" %>
+        <% end %>
+      <% end %>
+      <%= javascript_tag do %>
+        $(document).ready(function(){
+        <% @course.announcements.each do |ann| %>
+          $('#<%= "announcement_#{ann.id}_title" %>').click(function(){
+                $('#<%= "announcement_#{ann.id}_message" %>').collapse('toggle');
+            });
+        <% end %>
+        });
+      <% end %>
+    </div>
+    <div id="menu3" class="tab-pane fade">
+      <h3>Menu 3</h3>
+      <p>Eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</p>
+    </div>
+  </div>
+</div>
