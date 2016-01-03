@@ -1,11 +1,18 @@
 <p id="notice"><%= notice %></p>
 <div class="page-header">
+  <h4 class="text-left">
+    <%= link_to courses_path do %>
+      <span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span>Back To Courses
+    <% end %>
+  </h4>
   <h1 class="text-left">
     <%= "#{@course.code} - #{@course.name}" %>
     <br/>
     <small><%= "#{@lecturer.surname} #{@lecturer.name}" %></small>
   </h1>
 </div>
+<div id="test"></div>
+
 <div class="container">
   <ul class="nav nav-tabs nav-justified">
     <li class="active"><a data-toggle="tab" href="#menu1">Description</a></li>
@@ -28,7 +35,7 @@
         <div class="panel panel-default">
           <button class="btn bnt-lg btn-success btn-block" id="new-ann-button">New Announcement</button>
           <div id="new-ann" style="display: none;">
-            
+            <%= render :partial => 'announcements/form', locals: {course: @course} %>
             <button class="btn bnt-lg btn-danger btn-block" id="new-ann-button-cancel">Cancel</button>
           </div>
           <script>
@@ -40,20 +47,27 @@
               $("#new-ann-button-cancel").click(function(){
                 $("#new-ann").hide();
                 $("#new-ann-button").show();
+                $("#new-ann-title").val("");
+                $("#new-ann-message").val("");
               });
             });
           </script>
         </div>
       <% end %>
-      <% @announcements.each do |ann| %>
-        <div class="panel panel-default">
-        <div id='<%= "announcement_#{ann.id}_title" %>' class="panel-body"><%= ann.title %><div style="float: right;"><%= ann.updated_at.strftime("%m/%d/%Y") %></div>
-          <div id='<%= "announcement_#{ann.id}_message" %>' class="collapse well well-lg">
-            <%= ann.message %>
+      <div id="announcement_container">
+        <% @announcements.each do |ann| %>
+          <% if ann.created_at.nil? %>
+            <% next %>
+          <% end %>
+          <div class="panel panel-default">
+          <div id='<%= "announcement_#{ann.id}_title" %>' class="panel-body"><%= ann.title %><div style="float: right;"><%= ann.updated_at.strftime("%m/%d/%Y") %></div>
+            <div id='<%= "announcement_#{ann.id}_message" %>' class="collapse well well-lg">
+              <%= ann.message %>
+            </div>
           </div>
         </div>
+        <% end %>
       </div>
-      <% end %>
       <%= javascript_tag do %>
         $(document).ready(function(){
         <% @announcements.each do |ann| %>

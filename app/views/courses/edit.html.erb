@@ -1,10 +1,18 @@
-<h1>Editing Course</h1>
+<div class="page-header">
+  <h1 class="text-left">Edit Course</h1>
+</div>
 
 <div class="container">
   <%= render 'form' %>
 
-  <div class="col-sm-4">
-    <%= link_to 'Show', @course, class: "btn btn-info btn-sm" %>
-    <%= link_to 'Back', courses_path, class: "btn btn-danger btn-sm" %>
+  <div class="col-sm-2">
+    <div class="panel">
+      <%= link_to 'Show', @course, class: "btn bnt-lg btn-info btn-block" %>
+    </div>
+  </div>
+  <div class="col-sm-2">
+    <div class="panel">
+      <%= link_to 'Back', courses_path, class: "btn bnt-lg btn-danger btn-block" %>
+    </div>
   </div>
 </div>

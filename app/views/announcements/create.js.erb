@@ -1,0 +1,14 @@
+$("#new-ann-title").val("");
+$("#new-ann-message").val("");
+$("#new-ann").hide();
+$("#new-ann-button").show();
+$("#test").html("Success?");
+$("#announcement_container").prepend(
+  <div class="panel panel-default">
+    <div id='<%= "announcement_#{@announcement.id}_title" %>' class="panel-body"><%= @announcement.title %>
+    <div style="float: right;"><%= @announcement.updated_at.strftime("%m/%d/%Y") %></div>
+    <div id='<%= "announcement_#{@announcement.id}_message" %>' class="collapse well well-lg">
+      <%= @announcement.message %>
+    </div>
+  </div>
+);

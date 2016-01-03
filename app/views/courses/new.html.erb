@@ -1,9 +1,13 @@
-<h1>New Course</h1>
+<div class="page-header">
+  <h1 class="text-left">New Course</h1>
+</div>
 
 <div class="container">
   <%= render 'form' %>
 
   <div class="col-sm-4">
-    <%= link_to 'Back', courses_path, class: "btn btn-danger btn-sm" %>
+    <div class="panel">
+      <%= link_to 'Back', courses_path, class: "btn bnt-lg btn-danger btn-block" %>
+    </div>
   </div>
 </div>

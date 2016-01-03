@@ -12,29 +12,31 @@
       </div>
     <% end %>
 
-    <div class="form-group">
-      <%= f.label :code, class: "col-sm-4 control-label" %>
-      <div class="col-sm-8">
-        <%= f.text_field :code %>
+    <div class="panel">
+      <div class="input-group input-group-lg">
+        <span class="input-group-addon" id="sizing-addon1">Code</span>
+        <%= f.text_field :code, class: "form-control" %>
+      </div>
+    </div>
+    <div class="panel">
+      <div class="input-group input-group-lg">
+        <span class="input-group-addon" id="sizing-addon1">Name</span>
+        <%= f.text_field :name, class: "form-control" %>
+      </div>
+    </div>
+    <div class="panel">
+      <div class="input-group input-group-lg">
+        <span class="input-group-addon" id="sizing-addon1">Professor</span>
+        <%= f.select :lecturer_id, @professors, {}, {:class => "my_select input-group input-group-lg"} %>
       </div>
     </div>
 
-    <div class="form-group">
-      <%= f.label :name, class: "col-sm-4 control-label" %>
-      <div class="col-md-8">
-        <%= f.text_field :name %>
-      </div>
-    </div>
-
-    <div class="form-group">
-      <%= f.label :professor, class: "col-sm-4 control-label" %>
-      <div class="col-sm-8">
-        <%= f.select(:lecturer_id, @professors) %>
-      </div>
-    </div>
-    <div class="col-sm-8" </div>
-      <div class="actions">
-        <%= f.submit "Submit", class: "btn btn-default btn-lg btn-success pull-right"%>
+    <div class="col-sm-8">
+      <div class="panel">
+        <div class="actions">
+          <!-- <%= f.submit "Submit", class: "btn btn-default btn-lg btn-success pull-right"%> -->
+          <%= f.submit "Submit", class: "btn bnt-lg btn-success btn-block"%>
+        </div>
       </div>
     </div>
 <% end %>
