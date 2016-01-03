@@ -24,7 +24,28 @@
       <div class="page-header">
         <h3 class="text-left">Announcements</h3>
       </div>
-      <% @course.announcements.each do |ann| %>
+      <% if is_course_professor?(@course) %>
+        <div class="panel panel-default">
+          <button class="btn bnt-lg btn-success btn-block" id="new-ann-button">New Announcement</button>
+          <div id="new-ann" style="display: none;">
+            
+            <button class="btn bnt-lg btn-danger btn-block" id="new-ann-button-cancel">Cancel</button>
+          </div>
+          <script>
+            $(document).ready(function(){
+              $("#new-ann-button").click(function(){
+                $("#new-ann-button").hide();
+                $("#new-ann").show();
+              });
+              $("#new-ann-button-cancel").click(function(){
+                $("#new-ann").hide();
+                $("#new-ann-button").show();
+              });
+            });
+          </script>
+        </div>
+      <% end %>
+      <% @announcements.each do |ann| %>
         <div class="panel panel-default">
         <div id='<%= "announcement_#{ann.id}_title" %>' class="panel-body"><%= ann.title %><div style="float: right;"><%= ann.updated_at.strftime("%m/%d/%Y") %></div>
           <div id='<%= "announcement_#{ann.id}_message" %>' class="collapse well well-lg">
@@ -33,14 +54,9 @@
         </div>
       </div>
       <% end %>
-      <% if is_course_professor?(@course) %>
-        <%= form_tag(course_announcements_path(@course), remote: true) do %>
-          <%= submit_tag "New Announcement", class: "btn bnt-lg btn-success btn-block" %>
-        <% end %>
-      <% end %>
       <%= javascript_tag do %>
         $(document).ready(function(){
-        <% @course.announcements.each do |ann| %>
+        <% @announcements.each do |ann| %>
           $('#<%= "announcement_#{ann.id}_title" %>').click(function(){
                 $('#<%= "announcement_#{ann.id}_message" %>').collapse('toggle');
             });
@@ -54,3 +70,19 @@
     </div>
   </div>
 </div>
+<script>
+$(function() {
+  //for bootstrap 3 use 'shown.bs.tab' instead of 'shown' in the next line
+  $('a[data-toggle="tab"]').on('click', function (e) {
+    //save the latest tab; use cookies if you like 'em better:
+    localStorage.setItem('lastTab', $(e.target).attr('href'));
+  });
+
+  //go to the latest tab, if it exists:
+  var lastTab = localStorage.getItem('lastTab');
+
+  if (lastTab) {
+      $('a[href="'+lastTab+'"]').click();
+  }
+});
+</script>

@@ -30,6 +30,7 @@ class CoursesController < ApplicationController
   # GET /courses/1.json
   def show
     @lecturer = User.find(@course.lecturer_id)
+    @announcements = @course.announcements
   end
 
   # GET /courses/new
