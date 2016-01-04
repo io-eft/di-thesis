@@ -1,5 +1,5 @@
 class CoursesController < ApplicationController
-  before_action :set_course, only: [:show, :edit, :update, :destroy, :manage]
+  before_action :set_course, only: [:show, :edit, :update, :destroy, :manage, :description]
   before_action :verify_admin, only: [:new, :destroy]
   before_action :verify_rights, only: [:edit, :update, :manage]
   before_action :get_professors, only: [:new, :edit]
@@ -40,6 +40,17 @@ class CoursesController < ApplicationController
 
   # GET /courses/1/edit
   def edit
+  end
+
+  def description
+    @course.description = params[:description]
+    respond_to do |format|
+      if @course.save
+        format.js { render :description }
+      else
+        format.js
+      end
+    end
   end
 
   # POST /courses
@@ -166,6 +177,6 @@ class CoursesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def course_params
-      params.require(:course).permit(:code, :name, :lecturer_id)
+      params.require(:course).permit(:code, :name, :lecturer_id, :description)
     end
 end

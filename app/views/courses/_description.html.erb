@@ -1,0 +1,14 @@
+<%= form_tag(course_description_path(course), remote: true) do %>
+<div class="panel">
+  <div class="input-group input-group-lg">
+    <span class="input-group-addon" id="sizing-addon1">Description</span>
+    <%= text_area_tag :description, course.description, {class: "form-control custom_textarea", rows: 15, id: "edit-description"} %>
+  </div>
+</div>
+
+<div class="panel">
+  <div class="actions">
+    <%= submit_tag "Submit", class: "btn bnt-lg btn-success btn-block"%>
+  </div>
+</div>
+<% end %>

@@ -25,7 +25,32 @@
       <div class="page-header">
         <h3 class="text-left">Description</h3>
       </div>
-      <%= @course.description %>
+      <div id="desc-container" class="panel">
+        <%= @course.description %>
+      </div>
+      <% if is_course_professor?(@course) %>
+        <div class="panel panel-default">
+          <button class="btn bnt-lg btn-primary btn-block" id="edit-desc-button">Edit Description</button>
+          <div id="edit-desc" style="display: none;">
+            <%= render :partial => "description", locals: {course: @course} %>
+            <button class="btn bnt-lg btn-danger btn-block" id="edit-desc-button-cancel">Cancel</button>
+          </div>
+        </div>
+        <script>
+          $(document).ready(function(){
+            $("#edit-desc-button").click(function(){
+              $("#edit-desc-button").hide();
+              $("#desc-container").hide();
+              $("#edit-desc").show();
+            });
+            $("#edit-desc-button-cancel").click(function(){
+              $("#edit-desc").hide();
+              $("#edit-desc-button").show();
+              $("#desc-container").show();
+            });
+          });
+        </script>
+      <% end %>
     </div>
     <div id="menu2" class="tab-pane fade">
       <div class="page-header">

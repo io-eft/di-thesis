@@ -1,0 +1,6 @@
+$("#desc-container").html('<%= @course.description %>');
+$("#edit-desc").html("<%= escape_javascript(render :partial => 'description', locals: {course: @course}) %>");
+$("#edit-desc").append('<button class="btn bnt-lg btn-danger btn-block" id="edit-desc-button-cancel">Cancel</button>');
+$("#edit-desc").hide();
+$("#edit-desc-button").show();
+$("#desc-container").show();

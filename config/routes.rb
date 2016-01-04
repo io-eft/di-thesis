@@ -4,6 +4,7 @@ Rails.application.routes.draw do
     get "manage" => "courses#manage"
     post "enroll" => :enroll, as: "enroll"
     post "withdraw" => :withdraw, as: "withdraw"
+    post "description" => :description, as: "description"
     resources :announcements do
       post "new"
     end
