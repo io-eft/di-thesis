@@ -38,18 +38,22 @@
         </div>
 
         <script>
-          $(document).ready(function(){
-            $("#edit-desc-button").click(function(){
+          $(function(){
+            $(document).on("click","#edit-desc-button",function(){
               $("#edit-desc-button").hide();
               $("#desc-container").hide();
               $("#edit-desc").show();
             });
-            $("#edit-desc-button-cancel").click(function(){
+          });
+
+          $(function(){
+            $(document).on("click","#edit-desc-button-cancel",function(){
               $("#edit-desc").hide();
               $("#edit-desc-button").show();
               $("#desc-container").show();
             });
           });
+
         </script>
 
       <% end %>
