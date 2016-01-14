@@ -1,0 +1,21 @@
+<div class="panel panel-default">
+  <button class="btn bnt-lg btn-success btn-block" id="new-ann-button">New Announcement</button>
+  <div id="new-ann" style="display: none;">
+    <%= render :partial => 'announcements/form', locals: {course: course} %>
+    <button class="btn bnt-lg btn-danger btn-block" id="new-ann-button-cancel">Cancel</button>
+  </div>
+  <script>
+    $(document).ready(function(){
+      $("#new-ann-button").click(function(){
+        $("#new-ann-button").hide();
+        $("#new-ann").show();
+      });
+      $("#new-ann-button-cancel").click(function(){
+        $("#new-ann").hide();
+        $("#new-ann-button").show();
+        $("#new-ann-title").val("");
+        $("#new-ann-message").val("");
+      });
+    });
+  </script>
+</div>

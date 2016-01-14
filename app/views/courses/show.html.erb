@@ -26,79 +26,37 @@
         <h3 class="text-left">Description</h3>
       </div>
       <div id="desc-container" class="panel">
-        <%= @course.description %>
+        <%= best_in_place_if is_course_professor?(@course),
+        @course, :description, :as => :textarea, :ok_button => "Submit", :ok_button_class => "btn bnt-lg btn-success btn-block",
+        :cancel_button => "Cancel", :cancel_button_class => "btn bnt-lg btn-danger btn-block"  %>
       </div>
-      <% if is_course_professor?(@course) %>
-        <div class="panel panel-default">
-          <button class="btn bnt-lg btn-primary btn-block" id="edit-desc-button">Edit Description</button>
-          <div id="edit-desc" style="display: none;">
-            <%= render :partial => "description", locals: {course: @course} %>
-            <button class="btn bnt-lg btn-danger btn-block" id="edit-desc-button-cancel">Cancel</button>
-          </div>
-        </div>
 
-        <script>
-          $(function(){
-            $(document).on("click","#edit-desc-button",function(){
-              $("#edit-desc-button").hide();
-              $("#desc-container").hide();
-              $("#edit-desc").show();
-            });
-          });
-
-          $(function(){
-            $(document).on("click","#edit-desc-button-cancel",function(){
-              $("#edit-desc").hide();
-              $("#edit-desc-button").show();
-              $("#desc-container").show();
-            });
-          });
-
-        </script>
-
-      <% end %>
     </div>
     <div id="menu2" class="tab-pane fade">
       <div class="page-header">
         <h3 class="text-left">Announcements</h3>
       </div>
       <% if is_course_professor?(@course) %>
-        <div class="panel panel-default">
-          <button class="btn bnt-lg btn-success btn-block" id="new-ann-button">New Announcement</button>
-          <div id="new-ann" style="display: none;">
-            <%= render :partial => 'announcements/form', locals: {course: @course} %>
-            <button class="btn bnt-lg btn-danger btn-block" id="new-ann-button-cancel">Cancel</button>
-          </div>
-          <script>
-            $(document).ready(function(){
-              $("#new-ann-button").click(function(){
-                $("#new-ann-button").hide();
-                $("#new-ann").show();
-              });
-              $("#new-ann-button-cancel").click(function(){
-                $("#new-ann").hide();
-                $("#new-ann-button").show();
-                $("#new-ann-title").val("");
-                $("#new-ann-message").val("");
-              });
-            });
-          </script>
-        </div>
+        <%= render :partial => "announcements/professor_announcements", locals: {course: @course} %>
       <% end %>
       <div id="announcement_container">
-        <% @announcements.each do |ann| %>
+        <% @course.announcements.each do |ann| %>
           <% if ann.created_at.nil? %>
             <% next %>
           <% end %>
           <div class="panel panel-default">
           <div id='<%= "announcement_#{ann.id}_title" %>' class="panel-body">
-            <%= ann.title %>
-            <div style="float: right;">
+            <%= best_in_place_if is_course_professor?(@course), ann, :title, :url => course_announcement_path(@course, ann),
+            :ok_button => "Submit", :ok_button_class => "btn bnt-lg btn-success bip-button",
+            :cancel_button => "Cancel", :cancel_button_class => "btn bnt-lg btn-danger bip-button" %>
+            <div class="pull-right">
               <%= ann.updated_at.strftime("%m/%d/%Y") %>
             </div>
           </div>
           <div id='<%= "announcement_#{ann.id}_message" %>' class="collapse well well-lg">
-            <%= ann.message %>
+            <%= best_in_place_if is_course_professor?(@course), ann, :message, :as => :textarea, :url => course_announcement_path(@course, ann),
+            :ok_button => "Submit", :ok_button_class => "btn bnt-lg btn-success bip-button",
+            :cancel_button => "Cancel", :cancel_button_class => "btn bnt-lg btn-danger bip-button" %>
           </div>
         </div>
         <% end %>
