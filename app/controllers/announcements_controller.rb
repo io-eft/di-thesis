@@ -3,7 +3,6 @@ class AnnouncementsController < ApplicationController
   before_action :set_announcement, only: [:update]
   def create
     @announcement = @course.announcements.new(announcement_params)
-    @announcement.user_id = current_user.id
 
     respond_to do |format|
       if @announcement.save

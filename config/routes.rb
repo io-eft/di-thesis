@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   get "my_courses" => "courses#my_courses"
   resources :courses do
+    resources :assignments
     get "manage" => "courses#manage"
     post "enroll" => :enroll, as: "enroll"
     post "withdraw" => :withdraw, as: "withdraw"

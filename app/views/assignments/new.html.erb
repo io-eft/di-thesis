@@ -1,0 +1,17 @@
+<p id="notice"><%= notice %></p>
+<div class="page-header">
+  <h4 class="text-left">
+    <%= link_to course_path(@course) do %>
+      <span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span>Back To Course
+    <% end %>
+  </h4>
+  <h1 class="text-left">
+    <%= "#{@course.code} - #{@course.name}" %>
+    <br/>
+    <small>Create New Assignment</small>
+  </h1>
+</div>
+<%= render :partial => 'form', locals: {course: @course} %>
+<div class="panel">
+    <%= link_to "Back", course_path(@course), class: "btn bnt-lg btn-danger btn-block"%>
+</div>

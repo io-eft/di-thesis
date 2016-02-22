@@ -1,0 +1,40 @@
+<%= form_for [course, course.assignments.build] do |f| %>
+  <!-- <% if @assignment.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@assignment.errors.count, "error") %> prohibited this assignment from being saved:</h2>
+
+      <ul>
+      <% @assignment.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %> -->
+  <div class="panel">
+    <div class="input-group input-group-lg">
+      <span class="input-group-addon" id="sizing-addon1">Title</span>
+      <%= f.text_field :title, class: "form-control", id: "new-ass-title" %>
+    </div>
+  </div>
+  <div class="panel">
+    <div class="input-group input-group-lg">
+      <span class="input-group-addon" id="sizing-addon1">Message</span>
+      <%= f.text_area :description, class: "form-control", id: "new-ass-message" %>
+    </div>
+  </div>
+  <div class="panel">
+    <div class="input-group input-group-lg">
+      <span class="input-group-addon" id="sizing-addon1">Due Date</span>
+      <%= f.date_select :due_date %>
+    </div>
+  </div>
+  <div id="documents">
+    <%= render :partial => 'document', :collection => @assignment.documents %>
+  </div>
+
+  <div class="panel">
+    <div class="actions">
+      <%= f.submit "Submit", class: "btn bnt-lg btn-success btn-block"%>
+    </div>
+  </div>
+<% end %>
