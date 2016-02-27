@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style type="text/css">
+      html, body { height: 100%; margin: 0; padding: 0; }
+      #map { height: 100%; }
+    </style>
+  </head>
+  <body>
+    <div id="map"></div>
+    <script type="text/javascript">
+
+    var map;
+    var opts = {center: {lat: 46.2477805, lng: 5.969522807018421}, zoom: 15}
+    function initMap() {
+      map = new google.maps.Map(document.getElementById('map'), opts); //{
+        //center: {lat: -34.397, lng: 150.644},
+        //zoom: 8
+      //});
+    	var marker = new google.maps.Marker({position: opts["center"], map: map, title: "Test Marker"})
+    	var cont = "<div>This is a test content</div>" + "<div>And it has 2 lines</div>";
+    	var infowindow = new google.maps.InfoWindow({content: cont});
+
+    	marker.addListener('click', function() {
+    		infowindow.open(map, marker);
+    	});
+
+    }
+
+    </script>
+    <script async defer
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAQF_t-oAapPcDwuiucD8MELHxWvte17No&callback=initMap">
+    </script>
+  </body>
+</html>

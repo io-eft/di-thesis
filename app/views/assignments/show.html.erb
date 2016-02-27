@@ -1,21 +1,27 @@
 <p id="notice"><%= notice %></p>
-
-<p>
-  <strong>Title:</strong>
-  <%= @assignment.title %>
-</p>
-
-<p>
-  <strong>Description:</strong>
-  <%= @assignment.description %>
-</p>
-
-<p>
-  <strong>Due date:</strong>
-  <%= @assignment.due_date %>
-</p>
-
-<p>
-  <strong>Course:</strong>
-  <%= @assignment.course %>
-</p>
+<div class="page-header">
+  <h4 class="text-left">
+    <%= link_to course_path(@course) do %>
+      <span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span>Back To <%= "#{@course.name}" %>
+    <% end %>
+  </h4>
+  <h1 class="text-left">
+    <%= "#{@course.name} - #{@assignment.title}" %>
+    <br/>
+    <small>Due Date: <%= "#{@assignment.due_date.strftime("%m - %d - %Y")}" %></small>
+  </h1>
+</div>
+<div class="container">
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h3 class="panel-title">Description</h3>
+    </div>
+    <div class="panel-body">
+      <%= best_in_place_if is_course_professor?(@course, current_user.id), @assignment, :description, :as => :textarea, :display_with => :simple_format,
+      :url => course_assignment_path(@course, @assignment),
+      :ok_button => "Submit", :ok_button_class => "btn bnt-lg btn-success bip-button",
+      :cancel_button => "Cancel", :cancel_button_class => "btn bnt-lg btn-danger bip-button" %>
+    </div>
+  </div>
+  <%= add_documents(@course, @assignment) %>
+</div>

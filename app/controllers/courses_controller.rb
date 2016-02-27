@@ -124,14 +124,14 @@ class CoursesController < ApplicationController
 
   end
 
-  def is_course_professor?(course)
-    if(!current_user.nil? && current_user.id == course.lecturer_id)
-      return true;
-    else
-      return false;
-    end
-  end
-  helper_method :is_course_professor?
+  # def is_course_professor?(course)
+  #   if(!current_user.nil? && current_user.id == course.lecturer_id)
+  #     return true;
+  #   else
+  #     return false;
+  #   end
+  # end
+  # helper_method :is_course_professor?
 
   private
     # Use callbacks to share common setup or constraints between actions.

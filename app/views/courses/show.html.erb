@@ -17,7 +17,7 @@
   <ul class="nav nav-tabs nav-justified">
     <li class="active"><a data-toggle="tab" href="#menu1">Description</a></li>
     <li><a data-toggle="tab" href="#menu2">Announcements</a></li>
-    <li><a data-toggle="tab" href="#menu3">Menu 2</a></li>
+    <li><a data-toggle="tab" href="#menu3">Assignments</a></li>
   </ul>
 
   <div class="tab-content">
@@ -26,7 +26,7 @@
         <h3 class="text-left">Description</h3>
       </div>
       <div id="desc-container" class="panel">
-        <%= best_in_place_if is_course_professor?(@course),
+        <%= best_in_place_if is_course_professor?(@course, current_user.id),
         @course, :description, :as => :textarea, :ok_button => "Submit", :ok_button_class => "btn bnt-lg btn-success btn-block",
         :cancel_button => "Cancel", :cancel_button_class => "btn bnt-lg btn-danger btn-block"  %>
       </div>
@@ -36,7 +36,7 @@
       <div class="page-header">
         <h3 class="text-left">Announcements</h3>
       </div>
-      <% if is_course_professor?(@course) %>
+      <% if is_course_professor?(@course, current_user.id) %>
         <%= render :partial => "announcements/professor_announcements", locals: {course: @course} %>
       <% end %>
       <div id="announcement_container">
@@ -45,20 +45,20 @@
             <% next %>
           <% end %>
           <div class="panel panel-default">
-          <div id='<%= "announcement_#{ann.id}_title" %>' class="panel-body">
-            <%= best_in_place_if is_course_professor?(@course), ann, :title, :url => course_announcement_path(@course, ann),
-            :ok_button => "Submit", :ok_button_class => "btn bnt-lg btn-success bip-button",
-            :cancel_button => "Cancel", :cancel_button_class => "btn bnt-lg btn-danger bip-button" %>
-            <div class="pull-right">
-              <%= ann.updated_at.strftime("%m/%d/%Y") %>
+            <div id='<%= "announcement_#{ann.id}_title" %>' class="panel-body">
+              <%= best_in_place_if is_course_professor?(@course, current_user.id), ann, :title, :url => course_announcement_path(@course, ann),
+              :ok_button => "Submit", :ok_button_class => "btn bnt-lg btn-success bip-button",
+              :cancel_button => "Cancel", :cancel_button_class => "btn bnt-lg btn-danger bip-button" %>
+              <div class="pull-right">
+                <%= ann.updated_at.strftime("%m/%d/%Y") %>
+              </div>
+            </div>
+            <div id='<%= "announcement_#{ann.id}_message" %>' class="collapse well well-lg">
+              <%= best_in_place_if is_course_professor?(@course, current_user.id), ann, :message, :as => :textarea, :url => course_announcement_path(@course, ann),
+              :ok_button => "Submit", :ok_button_class => "btn bnt-lg btn-success bip-button",
+              :cancel_button => "Cancel", :cancel_button_class => "btn bnt-lg btn-danger bip-button" %>
             </div>
           </div>
-          <div id='<%= "announcement_#{ann.id}_message" %>' class="collapse well well-lg">
-            <%= best_in_place_if is_course_professor?(@course), ann, :message, :as => :textarea, :url => course_announcement_path(@course, ann),
-            :ok_button => "Submit", :ok_button_class => "btn bnt-lg btn-success bip-button",
-            :cancel_button => "Cancel", :cancel_button_class => "btn bnt-lg btn-danger bip-button" %>
-          </div>
-        </div>
         <% end %>
       </div>
       <script>
@@ -71,8 +71,19 @@
       </script>
     </div>
     <div id="menu3" class="tab-pane fade">
-      <h3>Menu 3</h3>
-      <p>Eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</p>
+      <div class="page-header">
+        <h3 class="text-left">Assignments</h3>
+      </div>
+      <% @course.assignments.each do |ass| %>
+        <div class="panel panel-default">
+          <div id='<%= "Assignment_#{ass.id}_title" %>' class="panel-body">
+            <%= link_to "#{ass.title}", course_assignment_path(@course, ass) %>
+            <div class="pull-right">
+              <%= "Due Date: " + ass.due_date.strftime("%m/%d/%Y") %>
+            </div>
+          </div>
+        </div>
+      <% end %>
       <div><%= link_to "New Assignment", new_course_assignment_path(@course) %></div>
     </div>
   </div>

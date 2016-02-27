@@ -1,6 +1,7 @@
 class AssignmentsController < ApplicationController
   before_action :set_course
   before_action :set_assignment, only: [:show, :edit, :update, :destroy]
+  before_action :set_document, only: [:download]
   # GET /assignments
   # GET /assignments.json
   def index
@@ -14,9 +15,8 @@ class AssignmentsController < ApplicationController
 
   # GET /assignments/new
   def new
-    @assignment = Assignment.new
-    @assignment.documents.build
-    puts "a"
+    #@assignment = Assignment.new
+    @assignment = @course.assignments.build
   end
 
   # GET /assignments/1/edit
@@ -40,13 +40,17 @@ class AssignmentsController < ApplicationController
     end
   end
 
+  def add_document
+    
+  end
+
   # PATCH/PUT /assignments/1
   # PATCH/PUT /assignments/1.json
   def update
     respond_to do |format|
       if @assignment.update(assignment_params)
-        format.html { redirect_to @course, notice: 'Assignment was successfully updated.' }
-        format.json { render :show, status: :ok, location: @assignment }
+        format.html { redirect_to course_assignment_path(@course, @assignment), notice: 'Assignment was successfully updated.' }
+        format.json { respond_with_bip(@assignment) }
       else
         format.html { render :edit }
         format.json { render json: @assignment.errors, status: :unprocessable_entity }
@@ -64,6 +68,11 @@ class AssignmentsController < ApplicationController
     end
   end
 
+  def download
+    send_file "#{Rails.root}/public//#{@doc.doc}"
+    #send_file "#{Rails.root}/public/uploads/document/doc/#{@course.id}/#{@assignment.id}/#{@doc.doc}"
+  end
+
   private
     def set_course
       @course = Course.find(params[:course_id])
@@ -77,5 +86,10 @@ class AssignmentsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def assignment_params
       params.require(:assignment).permit(:title, :description, :due_date, :course_id, documents_attributes: [:name, :doc, :_destroy])
+    end
+
+    def set_document
+      @assignment = Assignment.find(params[:assignment_id])
+      @doc = Document.find(params[:document_id])
     end
 end

@@ -1,6 +1,19 @@
 <p id="notice"><%= notice %></p>
+<%= index_table %>
 
 
+
+
+
+
+
+
+
+
+
+
+
+<% if false %>
 <% if(current_user.is_admin?) %>
   <h1 class="pull-left">Manage Courses</h1>
   <%= render partial: "admin_table" %>
@@ -12,7 +25,6 @@
   <%= render partial: "student_table" %>
 <% end %>
 
-<% if false %>
 <div>Old Part</div>
 <%= will_paginate @courses %>
 <table class="table">
