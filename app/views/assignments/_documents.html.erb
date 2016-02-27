@@ -6,7 +6,7 @@
     <% documents.each do |doc| %>
       <div class="row" style="padding: 0 10px;">
         <div id='<%= "document_#{doc.id}" %>'>
-          <%= link_to doc.name, doc.doc.url %>
+          <%= link_to doc.name, doc.doc.url, class: "fancybox" %>
           <span class="pull-right btn btn-info bip-button"><%= link_to "Download  ", course_assignment_document_download_path(@course, @assignment, doc), style: "color: white;" %></span>
         </div>
       </div>

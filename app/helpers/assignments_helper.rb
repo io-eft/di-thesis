@@ -8,4 +8,8 @@ module AssignmentsHelper
       end
     end
   end
+
+  def delete_button(course, id)
+    render partial: "delete_assignment" if is_course_professor?(course, id)
+  end
 end

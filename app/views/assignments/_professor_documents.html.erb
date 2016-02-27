@@ -9,8 +9,8 @@
           <%= best_in_place doc, :name, :url => course_assignment_document_path(@course, @assignment, doc) %>
           <span class="pull-right btn btn-danger bip-button"><%= link_to "Remove", course_assignment_document_path(@course, @assignment, doc), method: :delete,
           data: {confirm: "Remove #{doc.name}?"}, remote: true, style: "color: white;" %></span>
-          <span class="pull-right btn btn-info bip-button"><%= link_to "Download  ", course_assignment_document_download_path(@course, @assignment, doc), style: "color: white;" %></span>
-          <span class="pull-right btn btn-info bip-button"><%= link_to "View", doc.doc.url, style: "color: white;" %></span>
+          <span class="pull-right"><%= link_to "Download  ", course_assignment_document_download_path(@course, @assignment, doc), style: "color: white;", class: "btn btn-info bip-button" %></span>
+          <span class="pull-right"><%= link_to "View", doc.doc.url, style: "color: white;", class: "fancybox btn btn-info bip-button" %></span>
         </div>
       </div>
     <% end %>

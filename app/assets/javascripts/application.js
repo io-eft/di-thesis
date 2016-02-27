@@ -14,7 +14,14 @@
 //= require jquery_ujs
 //= require bootstrap-sprockets
 //= require turbolinks
+//= require jquery.turbolinks
 //= require jquery.purr
 //= require best_in_place
 //= require cocoon
+//= require fancybox
 //= require_tree .
+
+var fancybox = function(){
+    $(".fancybox").fancybox();
+};
+$(document).on("page:load ready", fancybox);

@@ -18,4 +18,16 @@ module CoursesHelper
     end
   end
 
+  def add_assignments(course)
+    if course.assignments.count == 0
+      render partial: "no_assignments"
+    else
+      render partial: "assignments"
+    end
+  end
+
+  def add_new_assignment(course, id)
+    render partial: "new_assignment" if is_course_professor?(course, id)
+  end
+
 end

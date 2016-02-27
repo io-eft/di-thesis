@@ -74,17 +74,8 @@
       <div class="page-header">
         <h3 class="text-left">Assignments</h3>
       </div>
-      <% @course.assignments.each do |ass| %>
-        <div class="panel panel-default">
-          <div id='<%= "Assignment_#{ass.id}_title" %>' class="panel-body">
-            <%= link_to "#{ass.title}", course_assignment_path(@course, ass) %>
-            <div class="pull-right">
-              <%= "Due Date: " + ass.due_date.strftime("%m/%d/%Y") %>
-            </div>
-          </div>
-        </div>
-      <% end %>
-      <div><%= link_to "New Assignment", new_course_assignment_path(@course) %></div>
+      <%= add_assignments(@course) %>
+      <%= add_new_assignment(@course, current_user.id) %>
     </div>
   </div>
 </div>
