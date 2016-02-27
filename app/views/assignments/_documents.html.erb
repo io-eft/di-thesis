@@ -4,12 +4,11 @@
   </div>
   <div class="panel-body">
     <% documents.each do |doc| %>
-      <div id='<%= "document_#{doc.id}" %>'>
-        <%= best_in_place doc, :name, :url => course_assignment_document_path(@course, @assignment, doc) %>
-        <span class="pull-right btn bnt-lg btn-danger bip-button"><%= link_to "Remove", course_assignment_document_path(@course, @assignment, doc), method: :delete,
-        data: {confirm: "Remove #{doc.name}?"}, remote: true, style: "color: white;" %></span>
-        <span class="pull-right btn bnt-lg btn-info bip-button"><%= link_to "Download  ", course_assignment_document_download_path(@course, @assignment, doc), style: "color: white;" %></span>
-        <span class="pull-right btn bnt-lg btn-info bip-button"><%= link_to "View", doc.doc.url, style: "color: white;" %></span>
+      <div class="row" style="padding: 0 10px;">
+        <div id='<%= "document_#{doc.id}" %>'>
+          <%= link_to doc.name, doc.doc.url %>
+          <span class="pull-right btn btn-info bip-button"><%= link_to "Download  ", course_assignment_document_download_path(@course, @assignment, doc), style: "color: white;" %></span>
+        </div>
       </div>
     <% end %>
   </div>

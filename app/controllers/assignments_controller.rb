@@ -1,6 +1,6 @@
 class AssignmentsController < ApplicationController
   before_action :set_course
-  before_action :set_assignment, only: [:show, :edit, :update, :destroy]
+  before_action :set_assignment, only: [:show, :edit, :update, :destroy, :add_document]
   before_action :set_document, only: [:download]
   # GET /assignments
   # GET /assignments.json
@@ -30,7 +30,6 @@ class AssignmentsController < ApplicationController
     #@assignment.documents.last.name = @assignment.documents.last.doc
     respond_to do |format|
       if @assignment.save
-
         format.html { redirect_to @course, notice: 'Assignment was successfully created.' }
         format.json { render :show, status: :created, location: @assignment }
       else
@@ -38,10 +37,6 @@ class AssignmentsController < ApplicationController
         format.json { render json: @assignment.errors, status: :unprocessable_entity }
       end
     end
-  end
-
-  def add_document
-    
   end
 
   # PATCH/PUT /assignments/1
@@ -80,7 +75,9 @@ class AssignmentsController < ApplicationController
 
     # Use callbacks to share common setup or constraints between actions.
     def set_assignment
-      @assignment = Assignment.find(params[:id])
+      id = params[:id].nil? ? params[:assignment_id] : params[:id]
+      @assignment = Assignment.find(id)
+      #@assignment = Assignment.find(params[:id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

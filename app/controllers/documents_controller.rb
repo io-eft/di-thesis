@@ -1,17 +1,29 @@
 class DocumentsController < ApplicationController
   before_action :set_course
   before_action :set_assignment
-  before_action :set_document
+  before_action :set_document, only: [:update, :destroy]
   before_action :set_id_to_remove, only: [:destroy]
 
   def update
     respond_to do |format|
       if @document.update(document_params)
-        format.html { redirect_to @assignment, notice: 'Document was successfully updated.' }
+        format.html { redirect_to course_assignment_path(@course, @assignment), notice: 'Document was successfully updated.' }
         format.json { respond_with_bip(@document) }
       else
         format.html { render :edit }
         format.json { render json: @document.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
+  def add_document
+    @new_doc = @assignment.documents.new(document_params)
+    respond_to do |format|
+      if @new_doc.save
+        format.html { redirect_to course_assignment_path(@course, @assignment), notice: "Document Added!"}
+        format.js
+      else
+        redirect_to @assignment, notice: "There has been an error adding the document"
       end
     end
   end

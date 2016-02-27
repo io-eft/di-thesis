@@ -27,8 +27,8 @@
       </div>
       <div id="desc-container" class="panel">
         <%= best_in_place_if is_course_professor?(@course, current_user.id),
-        @course, :description, :as => :textarea, :ok_button => "Submit", :ok_button_class => "btn bnt-lg btn-success btn-block",
-        :cancel_button => "Cancel", :cancel_button_class => "btn bnt-lg btn-danger btn-block"  %>
+        @course, :description, :as => :textarea, :ok_button => "Submit", :ok_button_class => "btn btn-success btn-block",
+        :cancel_button => "Cancel", :cancel_button_class => "btn btn-danger btn-block"  %>
       </div>
 
     </div>
@@ -47,16 +47,16 @@
           <div class="panel panel-default">
             <div id='<%= "announcement_#{ann.id}_title" %>' class="panel-body">
               <%= best_in_place_if is_course_professor?(@course, current_user.id), ann, :title, :url => course_announcement_path(@course, ann),
-              :ok_button => "Submit", :ok_button_class => "btn bnt-lg btn-success bip-button",
-              :cancel_button => "Cancel", :cancel_button_class => "btn bnt-lg btn-danger bip-button" %>
+              :ok_button => "Submit", :ok_button_class => "btn btn-success bip-button",
+              :cancel_button => "Cancel", :cancel_button_class => "btn btn-danger bip-button" %>
               <div class="pull-right">
                 <%= ann.updated_at.strftime("%m/%d/%Y") %>
               </div>
             </div>
             <div id='<%= "announcement_#{ann.id}_message" %>' class="collapse well well-lg">
               <%= best_in_place_if is_course_professor?(@course, current_user.id), ann, :message, :as => :textarea, :url => course_announcement_path(@course, ann),
-              :ok_button => "Submit", :ok_button_class => "btn bnt-lg btn-success bip-button",
-              :cancel_button => "Cancel", :cancel_button_class => "btn bnt-lg btn-danger bip-button" %>
+              :ok_button => "Submit", :ok_button_class => "btn btn-success bip-button",
+              :cancel_button => "Cancel", :cancel_button_class => "btn btn-danger bip-button" %>
             </div>
           </div>
         <% end %>

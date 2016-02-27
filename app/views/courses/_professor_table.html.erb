@@ -19,7 +19,7 @@
         <td style="text-align:right;" colspan="2"><%= @attending[course.id] %></td>
         <td>
           <% if is_course_professor?(course, current_user.id) %>
-            <%= link_to 'Manage', course_manage_path(course), :class => "btn bnt-lg btn-primary btn-block" %>
+            <%= link_to 'Manage', course_manage_path(course), :class => "btn btn-primary btn-block" %>
           <% end %>
         </td>
       </tr>

@@ -1,15 +1,4 @@
 <%= form_for [course, course.announcements.build], :html => {:id => "new_ann_form"}, remote: true do |f| %>
-    <!-- <% if @course.errors.any? %>
-      <div id="error_explanation">
-        <h2><%= pluralize(@course.errors.count, "error") %> prohibited this course from being saved:</h2>
-
-        <ul>
-        <% @course.errors.full_messages.each do |message| %>
-          <li><%= message %></li>
-        <% end %>
-        </ul>
-      </div>
-    <% end %> -->
   <div class="panel">
     <div class="input-group input-group-lg">
       <span class="input-group-addon" id="sizing-addon1">Title</span>
@@ -25,7 +14,7 @@
 
   <div class="panel">
     <div class="actions">
-      <%= f.submit "Submit", class: "btn bnt-lg btn-success btn-block"%>
+      <%= f.submit "Submit", class: "btn btn-success btn-block"%>
     </div>
   </div>
 <% end %>

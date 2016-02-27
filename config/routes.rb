@@ -2,10 +2,10 @@ Rails.application.routes.draw do
   get "my_courses" => "courses#my_courses"
   resources :courses do
     resources :assignments do
+      match "add_document" => "documents#add_document", :via => :post
       resources :documents do
         get "download" => "assignments#download"
       end
-      post "add_document" => :add_document, as: "add_document"
     end
     get "manage" => "courses#manage"
     post "enroll" => :enroll, as: "enroll"
@@ -15,7 +15,6 @@ Rails.application.routes.draw do
       post "new"
     end
   end
-  resources :forums
   devise_for :users
 
   get "/pages/*page" => "pages#show"

@@ -15,6 +15,6 @@
     = f.fields_for :documents do |doc|
       = render 'document_fields', f: doc
     .links
-      = link_to_add_association 'Add Document', f, :documents, class: "btn bnt-lg btn-info doc-button"
+      = link_to_add_association 'Add Document', f, :documents, class: "btn btn-info doc-button"
     %br
-    = f.submit 'Create Assignment', class: "btn bnt-lg btn-success btn-block"
+    = f.submit 'Create Assignment', class: "btn btn-success btn-block"

@@ -3,7 +3,6 @@ class AnnouncementsController < ApplicationController
   before_action :set_announcement, only: [:update]
   def create
     @announcement = @course.announcements.new(announcement_params)
-
     respond_to do |format|
       if @announcement.save
         format.js { render :create }

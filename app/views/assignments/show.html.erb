@@ -19,9 +19,9 @@
     <div class="panel-body">
       <%= best_in_place_if is_course_professor?(@course, current_user.id), @assignment, :description, :as => :textarea, :display_with => :simple_format,
       :url => course_assignment_path(@course, @assignment),
-      :ok_button => "Submit", :ok_button_class => "btn bnt-lg btn-success bip-button",
-      :cancel_button => "Cancel", :cancel_button_class => "btn bnt-lg btn-danger bip-button" %>
+      :ok_button => "Submit", :ok_button_class => "btn btn-success bip-button",
+      :cancel_button => "Cancel", :cancel_button_class => "btn btn-danger bip-button" %>
     </div>
   </div>
-  <%= add_documents(@course, @assignment) %>
+  <%= add_documents(@course, @assignment, current_user.id) %>
 </div>
