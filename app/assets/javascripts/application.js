@@ -24,4 +24,6 @@
 var fancybox = function(){
     $(".fancybox").fancybox();
 };
+
+
 $(document).on("page:load ready", fancybox);

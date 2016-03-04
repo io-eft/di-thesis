@@ -9,7 +9,10 @@
   <h1 class="text-left col-md-10">
     <%= "#{@course.name} - #{@assignment.title}" %>
     <br/>
-    <small>Due Date: <%= "#{@assignment.due_date.strftime("%m - %d - %Y")}" %></small>
+    <small>
+      Due Date: <%= "#{@assignment.due_date.strftime("%m - %d - %Y")}" %>
+      <%= time_left?(@assignment) %>
+    </small>
   </h1>
   <%= delete_button(@course, current_user.id) %>
 </div>
@@ -26,5 +29,6 @@
       :cancel_button => "Cancel", :cancel_button_class => "btn btn-danger bip-button" %>
     </div>
   </div>
+  <%= add_homework(@course, @assignment, current_user.id) %>
   <%= add_documents(@course, @assignment, current_user.id) %>
 </div>

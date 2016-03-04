@@ -1,0 +1,9 @@
+<div class="panel panel-default <%= "panel-#{color}" %>">
+  <div class="panel-heading">
+    <h3 class="panel-title">Your homework</h3>
+  </div>
+  <div class="panel-body">
+    <%= exp_hw %>
+    <%= download_homework(course, assignment, current_user.id) %>
+  </div>
+</div>

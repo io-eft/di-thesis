@@ -2,6 +2,7 @@ class AssignmentsController < ApplicationController
   before_action :set_course
   before_action :set_assignment, only: [:show, :edit, :update, :destroy, :add_document]
   before_action :set_document, only: [:download]
+  before_action :set_homework, only: [:show]
   # GET /assignments
   # GET /assignments.json
   def index
@@ -66,7 +67,7 @@ class AssignmentsController < ApplicationController
   end
 
   def download
-    send_file "#{Rails.root}/public//#{@doc.doc}"
+    send_file "#{Rails.root}/public/#{@doc.doc}"
     #send_file "#{Rails.root}/public/uploads/document/doc/#{@course.id}/#{@assignment.id}/#{@doc.doc}"
   end
 
@@ -90,5 +91,10 @@ class AssignmentsController < ApplicationController
     def set_document
       @assignment = Assignment.find(params[:assignment_id])
       @doc = Document.find(params[:document_id])
+    end
+
+    def set_homework
+      id = params[:id].nil? ? params[:assignment_id] : params[:id]
+      @homework = Homework.where(assignment_id: id, user_id: current_user.id) unless current_user.id.nil?
     end
 end

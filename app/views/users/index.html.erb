@@ -1,0 +1,31 @@
+<h1 class="pull-left">Manage Users</h1>
+<%= will_paginate @users %>
+<table class="table table-hover">
+  <thead>
+  <tr>
+    <th>ID</th>
+    <th style="text-align:left;" colspan="2">Name</th>
+    <th style="text-align:left;" colspan="2">Email</th>
+    <th style="text-align:right;" colspan="2">User Role</th>
+  </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><%= @users.first.id %></td>
+      <td colspan="2"><%= "#{@users.first.surname} #{@users.first.name}" %></td>
+      <td style="text-align:left;" colspan="2"><%= "#{@users.first.email}" %></td>
+      <td style="text-align:right;" colspan="2">
+        <button type="button" class="btn btn-block btn-primary">Master Account
+        </button>
+      </td>
+    </tr>
+    <% @users.drop(1).each do |user| %>
+      <tr>
+        <td><%= user.id %></td>
+        <td colspan="2"><%= "#{user.surname} #{user.name}" %></td>
+        <td style="text-align:left;" colspan="2"><%= "#{user.email}" %></td>
+        <td style="text-align:right;" colspan="2"><div id='<%= "user_#{user.id}" %>' <%= add_role_button(user) %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

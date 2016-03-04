@@ -1,0 +1,23 @@
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h3 class="panel-title">Submit your Assingment</h3>
+  </div>
+  <div class="panel-body">
+    <%= form_for [course, assignment, assignment.homeworks.build] do |f| %>
+      <div class="col-md-3 doc-class">
+        <div class="input-group">
+          <%= f.file_field :hw %>
+        </div>
+      </div>
+      <div class="col-md-1 doc-class">
+        <%= submit_tag "Submit", class: "btn btn-#{color}", data: {disable_with: "Submitting..."}, disabled: true %>
+      </div>
+      <div class="col-md-6 doc-class">
+        <%= submitted %>
+      </div>
+      <div class="col-md-2 doc-class">
+        <%= download_homework(course, assignment, current_user.id) %>
+      </div>
+    <% end %>
+  </div>
+</div>

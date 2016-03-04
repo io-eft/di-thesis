@@ -1,15 +1,15 @@
 = form_for [course, @assignment] do |f|
   .panel
     %div{:class => ["input-group", "input-group-lg"]}
-      %span{:class => ["input-group-addon"], :id => "sizing-addon1"} Title
+      %span{:class => ["input-group-addon"]} Title
       = f.text_field :title, class: "form-control"
   .panel
     %div{:class => ["input-group", "input-group-lg"]}
-      %span{:class => ["input-group-addon"], :id => "sizing-addon1"} Description
+      %span{:class => ["input-group-addon"]} Description
       = f.text_area :description, class: "form-control"
   .panel
     %div{:class => ["input-group", "input-group-lg"]}
-      %span{:class => ["input-group-addon"], :id => "sizing-addon1"} Due Date
+      %span{:class => ["input-group-addon"]} Due Date
       = f.date_select :due_date, class: "form-control"
   #documents
     = f.fields_for :documents do |doc|

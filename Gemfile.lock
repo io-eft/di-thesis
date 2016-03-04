@@ -78,6 +78,9 @@ GEM
       responders
       thread_safe (~> 0.1)
       warden (~> 1.2.3)
+    dotiw (3.0.1)
+      actionpack (>= 3)
+      i18n
     erubis (2.7.0)
     execjs (2.6.0)
     fancybox-rails (0.3.1)
@@ -191,6 +194,7 @@ DEPENDENCIES
   cocoon
   coffee-rails (~> 4.1.0)
   devise
+  dotiw
   fancybox-rails
   haml
   jbuilder (~> 2.0)

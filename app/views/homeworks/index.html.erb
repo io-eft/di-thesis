@@ -1,0 +1,21 @@
+<h1 class="pull-left"><%= "#{@assignment.title}" %></h1>
+<table class="table table-hover">
+  <thead>
+  <tr>
+    <th>Student ID</th>
+    <th colspan="2">Student email</th>
+    <th style="text-align:left;" colspan="2">Student Name</th>
+    <th></th>
+  </tr>
+  </thead>
+  <tbody>
+  <% @homework.each do |hw| %>
+      <tr>
+        <td><%= "#{hw.user.id}" %></td>
+        <td colspan="2"><%= "#{hw.user.email}" %></td>
+        <td style="text-align:left;" colspan="2"><%= "#{hw.user.surname} #{hw.user.name}" %></td>
+        <td><%= get_student_homework(@course, @assignment, hw.user.id) %></td>
+      </tr>
+  <% end %>
+  </tbody>
+</table>

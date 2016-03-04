@@ -1,0 +1,10 @@
+<div class="btn-group btn-block">
+  <button type="button" class='btn btn-<%= "#{@colours[role]}" %> btn-block dropdown-toggle' data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    <%= role.capitalize %> <span class="caret"></span>
+  </button>
+  <ul class="dropdown-menu">
+    <% @drop_roles.each do |r| %>
+      <li><a href="#"><%= render partial: "give_role", locals: {user: user, role: r} unless r == role %></a></li>
+    <% end %>
+  </ul>
+</div>

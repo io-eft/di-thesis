@@ -1,28 +1,57 @@
-<h2>Sign up</h2>
+<div class="page-header">
+  <h1 class="text-left">
+    Sign Up
+  </h1>
+</div>
 
 <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
   <%= devise_error_messages! %>
 
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true %>
+  <div class="panel">
+    <div class="input-group input-group-lg">
+      <span class="input-group-addon">Name</span>
+      <%= f.text_field :name, autofocus: true, class: "form-control" %>
+    </div>
   </div>
 
-  <div class="field">
-    <%= f.label :password %>
-    <% if @minimum_password_length %>
-    <em>(<%= @minimum_password_length %> characters minimum)</em>
-    <% end %><br />
-    <%= f.password_field :password, autocomplete: "off" %>
+  <div class="panel">
+    <div class="input-group input-group-lg">
+      <span class="input-group-addon">Surname</span>
+      <%= f.text_field :surname, autofocus: true, class: "form-control" %>
+    </div>
   </div>
 
-  <div class="field">
-    <%= f.label :password_confirmation %><br />
-    <%= f.password_field :password_confirmation, autocomplete: "off" %>
+  <div class="panel">
+    <div class="input-group input-group-lg">
+      <span class="input-group-addon">Email</span>
+      <%= f.email_field :email, autofocus: true, class: "form-control" %>
+    </div>
   </div>
 
-  <div class="actions">
-    <%= f.submit "Sign up" %>
+  <div class="panel">
+    <div class="input-group input-group-lg">
+      <span class="input-group-addon">Password
+      <% if @minimum_password_length %>
+      <small></em>(<%= @minimum_password_length %> characters minimum)</em></small>
+      <% end %>
+      </span>
+      <%= f.password_field :password, autocomplete: "off", class: "form-control" %>
+    </div>
+  </div>
+
+  <div class="panel">
+    <div class="input-group input-group-lg">
+      <span class="input-group-addon">Password Confirmation</span>
+      <%= f.password_field :password_confirmation, autocomplete: "off", class: "form-control" %>
+    </div>
+  </div>
+
+  <div class="col-md-6">
+    <div class="panel">
+      <div class="actions">
+        <%= f.submit "Sign up", class: "btn btn-success btn-block" %>
+      </div>
+    </div>
   </div>
 <% end %>
 

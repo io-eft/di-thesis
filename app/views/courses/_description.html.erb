@@ -1,7 +1,7 @@
 <%= form_tag(course_description_path(course), remote: true) do %>
 <div class="panel">
   <div class="input-group input-group-lg">
-    <span class="input-group-addon" id="sizing-addon1">Description</span>
+    <span class="input-group-addon">Description</span>
     <%= text_area_tag :description, course.description, {class: "form-control custom_textarea", rows: 15, id: "edit-description"} %>
   </div>
 </div>

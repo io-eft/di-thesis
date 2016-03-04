@@ -30,4 +30,11 @@ module CoursesHelper
     render partial: "new_assignment" if is_course_professor?(course, id)
   end
 
+  def student_attends_course(course, id)
+    return !StudentAttendsCourse.where(user_id: id, course_id: course.id).empty?
+  end
+
+  def professor_announcements(course, user_id)
+    render :partial => "announcements/professor_announcements", locals: {course: @course} if is_course_professor?(course, user_id)
+  end
 end

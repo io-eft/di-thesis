@@ -6,6 +6,9 @@ Rails.application.routes.draw do
       resources :documents do
         get "download" => "assignments#download"
       end
+      resources :homeworks do
+        get "download" => "homeworks#download"
+      end
     end
     get "manage" => "courses#manage"
     post "enroll" => :enroll, as: "enroll"
@@ -16,6 +19,12 @@ Rails.application.routes.draw do
     end
   end
   devise_for :users
+  resources :users, only: [:index] do
+    post "give_role"
+    post "make_admin"
+    post "make_professor"
+    post "make_student"
+  end
 
   get "/pages/*page" => "pages#show"
   # The priority is based upon order of creation: first created -> highest priority.

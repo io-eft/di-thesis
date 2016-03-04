@@ -28,7 +28,7 @@
       <div id="desc-container" class="panel">
         <%= best_in_place_if is_course_professor?(@course, current_user.id),
         @course, :description, :as => :textarea, :ok_button => "Submit", :ok_button_class => "btn btn-success btn-block",
-        :cancel_button => "Cancel", :cancel_button_class => "btn btn-danger btn-block"  %>
+        :cancel_button => "Cancel", :cancel_button_class => "btn btn-danger btn-block", :display_with => :simple_format %>
       </div>
 
     </div>
@@ -36,9 +36,7 @@
       <div class="page-header">
         <h3 class="text-left">Announcements</h3>
       </div>
-      <% if is_course_professor?(@course, current_user.id) %>
-        <%= render :partial => "announcements/professor_announcements", locals: {course: @course} %>
-      <% end %>
+      <%= professor_announcements(@course, current_user.id) %>
       <div id="announcement_container">
         <% @course.announcements.each do |ann| %>
           <% if ann.created_at.nil? %>
