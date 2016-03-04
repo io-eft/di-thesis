@@ -27,14 +27,14 @@
     </div>
   <% end -%>
 
-  <div class="col-md-4">
+  <div class="col-md-6">
     <div class="panel">
       <div class="actions">
-        <%= f.submit "Log up", class: "btn btn-success btn-block" %>
+        <%= f.submit "Log in", class: "btn btn-success btn-block" %>
       </div>
     </div>
   </div>
 
 <% end %>
 
-<%= render "devise/shared/links" %>
+<%= render partial: "devise/shared/links", locals: {w: 3} %>

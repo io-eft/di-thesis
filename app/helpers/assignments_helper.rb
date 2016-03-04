@@ -1,11 +1,9 @@
 module AssignmentsHelper
   def add_documents(course, assignment, id)
-    if(assignment.documents.count != 0)
-      if(is_course_professor?(course, id))
-        render partial: "professor_documents", locals: {documents: assignment.documents}
-      else
-        render partial: "documents", locals: {documents: assignment.documents}
-      end
+    if(is_course_professor?(course, id))
+      render partial: "professor_documents", locals: {documents: assignment.documents}
+    elsif(assignment.documents.count != 0)
+      render partial: "documents", locals: {documents: assignment.documents}
     end
   end
 
@@ -53,6 +51,6 @@ module AssignmentsHelper
       color = "#3c763d;"
       time_left = " (#{distance_of_time_in_words(time)})"
     end
-    render partial: "time_left", locals: {time_left: time_left, color: color}
+    render partial: "assignments/time_left", locals: {time_left: time_left, color: color}
   end
 end

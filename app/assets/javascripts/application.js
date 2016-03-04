@@ -17,6 +17,7 @@
 //= require jquery.turbolinks
 //= require jquery.purr
 //= require best_in_place
+//= require best_in_place.jquery-ui
 //= require cocoon
 //= require fancybox
 //= require_tree .
@@ -24,6 +25,5 @@
 var fancybox = function(){
     $(".fancybox").fancybox();
 };
-
 
 $(document).on("page:load ready", fancybox);

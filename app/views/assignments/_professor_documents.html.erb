@@ -7,8 +7,8 @@
       <div class="row" style="padding: 0 10px;">
         <div id='<%= "document_#{doc.id}" %>'>
           <%= best_in_place doc, :name, :url => course_assignment_document_path(@course, @assignment, doc) %>
-          <span class="pull-right btn btn-danger bip-button"><%= link_to "Remove", course_assignment_document_path(@course, @assignment, doc), method: :delete,
-          data: {confirm: "Remove #{doc.name}?"}, remote: true, style: "color: white;" %></span>
+          <span class="pull-right"><%= link_to "Remove", course_assignment_document_path(@course, @assignment, doc), method: :delete,
+          data: {confirm: "Remove #{doc.name}?"}, remote: true, style: "color: white;", class:  "btn btn-danger bip-button" %></span>
           <span class="pull-right"><%= link_to "Download  ", course_assignment_document_download_path(@course, @assignment, doc), style: "color: white;", class: "btn btn-info bip-button" %></span>
           <span class="pull-right"><%= link_to "View", doc.doc.url, style: "color: white;", class: "fancybox btn btn-info bip-button" %></span>
         </div>
@@ -17,8 +17,24 @@
   </div>
 </div>
 
-<div id="new_doc">
-  <%= form_for @assignment.documents.build, url: course_assignment_add_document_path(@course, @assignment), remote: true do |f| %>
+<script>
+    var ready = function() {
+        $(".new_doc_toggle").on('click', function(){
+          $('#add_new_doc_button').toggle();
+          $('#new_doc').toggle();
+          $('#new_doc_form').trigger('reset');
+          $('#submit_new_doc').prop('disabled', true);
+        })
+    };
+
+    $(document).ready(ready);
+    $(document).on('page:load', ready);
+</script>
+
+<button id="add_new_doc_button" class="btn btn-block btn-success new_doc_toggle">Add new Document</button>
+
+<div id="new_doc" style="display: none">
+  <%= form_for @assignment.documents.build, url: course_assignment_add_document_path(@course, @assignment), :html => {:id => "new_doc_form"}, remote: true do |f| %>
     <div class="col-md-4 doc-class">
       <div class="input-group">
         <span class="input-group-addon">Document Name</span>
@@ -28,7 +44,7 @@
     <div class="col-md-4 doc-class">
       <%= f.file_field :doc %>
     </div>
-    <%= submit_tag "Add Document", class: "btn btn-success col-md-2" %>
-    <div class="btn btn-danger col-md-2">Cancel</div>
+    <%= submit_tag "Add Document", class: "btn btn-success col-md-2",id: "submit_new_doc", data: {disable_with: "Submitting..."}, disabled: true %>
+    <div class="btn btn-danger col-md-2 new_doc_toggle">Cancel</div>
   <% end %>
 </div>
