@@ -11,7 +11,7 @@
     <small>Edit Assignment</small>
   </h1>
 </div>
-<%= render :partial => 'form', locals: {course: @course, assignment: @assignment} %>
+<%= render :partial => 'form', locals: {course: @course, assignment: @assignment, n: false} %>
 <div class="panel">
     <%= link_to "Back", course_path(@course), class: "btn btn-danger btn-block"%>
 </div>

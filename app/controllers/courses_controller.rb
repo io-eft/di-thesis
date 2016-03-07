@@ -12,7 +12,7 @@ class CoursesController < ApplicationController
     if(current_user.nil?)
       render file: 'public/403', :status => :forbidden
     end
-    @courses = Course.all.paginate(page: params[:page], per_page: 5)
+    @courses = Course.all.paginate(page: params[:page], per_page: 10)
     #@professors = {}
     @attending = {}
     @courses.each do |c|
@@ -116,7 +116,7 @@ class CoursesController < ApplicationController
   end
 
   def my_courses
-    @courses = Course.where(id: StudentAttendsCourse.where(user_id: current_user.id).pluck(:course_id)).paginate(page: params[:page], per_page: 5)
+    @courses = Course.where(id: StudentAttendsCourse.where(user_id: current_user.id).pluck(:course_id)).paginate(page: params[:page], per_page: 10)
     get_professor_names
   end
 

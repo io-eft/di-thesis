@@ -27,8 +27,10 @@
       </div>
       <div id="desc-container" class="panel">
         <%= best_in_place_if is_course_professor?(@course, current_user.id),
-        @course, :description, :as => :textarea, :ok_button => "Submit", :ok_button_class => "btn btn-success btn-block",
-        :cancel_button => "Cancel", :cancel_button_class => "btn btn-danger btn-block", :display_with => :simple_format %>
+          @course, :description, :as => :textarea, :ok_button => "Submit", :ok_button_class => "btn btn-success btn-block",
+          :cancel_button => "Cancel", :cancel_button_class => "btn btn-danger btn-block", :display_with => :simple_format,
+          :html_attrs => { :style => "width: 100%;" }
+         %>
       </div>
 
     </div>
@@ -46,7 +48,8 @@
             <div id='<%= "announcement_#{ann.id}_title" %>' class="panel-body">
               <%= best_in_place_if is_course_professor?(@course, current_user.id), ann, :title, :url => course_announcement_path(@course, ann),
               :ok_button => "Submit", :ok_button_class => "btn btn-success bip-button",
-              :cancel_button => "Cancel", :cancel_button_class => "btn btn-danger bip-button" %>
+              :cancel_button => "Cancel", :cancel_button_class => "btn btn-danger bip-button",
+              :html_attrs => { :cols => 100 } %>
               <div class="pull-right">
                 <%= ann.updated_at.strftime("%m/%d/%Y") %>
               </div>

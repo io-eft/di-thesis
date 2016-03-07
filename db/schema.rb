@@ -53,11 +53,6 @@ ActiveRecord::Schema.define(version: 20160227214844) do
 
   add_index "documents", ["assignment_id"], name: "index_documents_on_assignment_id"
 
-  create_table "forums", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "homeworks", force: :cascade do |t|
     t.integer  "user_id"
     t.integer  "assignment_id"

@@ -1,5 +1,4 @@
 <h1 class="pull-left">View Courses</h1>
-<%= will_paginate @courses %>
 <table class="table table-hover">
   <thead>
   <tr>
@@ -26,3 +25,4 @@
   <% end %>
   </tbody>
 </table>
+<%= will_paginate @courses, :class => "apple_pagination" %>

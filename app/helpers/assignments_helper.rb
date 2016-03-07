@@ -1,14 +1,14 @@
 module AssignmentsHelper
   def add_documents(course, assignment, id)
     if(is_course_professor?(course, id))
-      render partial: "professor_documents", locals: {documents: assignment.documents}
-    elsif(assignment.documents.count != 0)
+      render partial: "professor_documents", locals: {documents: assignment.documents, disp: assignment.documents.empty? ? "display: none" : ""}
+    elsif(!assignment.documents.empty?)
       render partial: "documents", locals: {documents: assignment.documents}
     end
   end
 
-  def delete_button(course, id)
-    render partial: "delete_assignment" if is_course_professor?(course, id)
+  def edit_and_delete_button(course, id)
+    render partial: "edit_and_delete_assignment" if is_course_professor?(course, id)
   end
 
   def add_homework(course, assignment, id)
@@ -52,5 +52,13 @@ module AssignmentsHelper
       time_left = " (#{distance_of_time_in_words(time)})"
     end
     render partial: "assignments/time_left", locals: {time_left: time_left, color: color}
+  end
+
+  def get_homeworks(course, assignment, id)
+    if is_course_professor?(course, id) && !assignment.homeworks.empty?
+      render partial: "submitted_homeworks", locals: {course: course, assignment: assignment}
+    else
+      render partial: "no_submitted_homeworks"
+    end
   end
 end

@@ -6,16 +6,17 @@
     <% end %>
   </h4>
   <div class="row">
-  <h1 class="text-left col-md-10">
-    <%= "#{@course.name} - #{@assignment.title}" %>
-    <br/>
-    <small>
-      Due Date: <%= "#{@assignment.due_date.strftime("%m - %d - %Y")}" %>
-      <%= time_left?(@assignment) %>
-    </small>
-  </h1>
-  <%= delete_button(@course, current_user.id) %>
-</div>
+    <h1 class="text-left col-md-10">
+      <%= "#{@course.name} - #{@assignment.title}" %>
+      <br/>
+      <small>
+        Due Date: <%= "#{@assignment.due_date.strftime("%m - %d - %Y")}" %>
+        <%= time_left?(@assignment) %>
+      </small>
+    </h1>
+    <%= edit_and_delete_button(@course, current_user.id) %>
+  </div>
+  <%= get_homeworks(@course, @assignment, current_user.id) %>
 </div>
 <div class="container">
   <div class="panel panel-default">
@@ -26,7 +27,8 @@
       <%= best_in_place_if is_course_professor?(@course, current_user.id), @assignment, :description, :as => :textarea, :display_with => :simple_format,
       :url => course_assignment_path(@course, @assignment),
       :ok_button => "Submit", :ok_button_class => "btn btn-success bip-button",
-      :cancel_button => "Cancel", :cancel_button_class => "btn btn-danger bip-button" %>
+      :cancel_button => "Cancel", :cancel_button_class => "btn btn-danger bip-button",
+      :html_attrs => { :style => "width: 100%;" } %>
     </div>
   </div>
   <%= add_homework(@course, @assignment, current_user.id) %>

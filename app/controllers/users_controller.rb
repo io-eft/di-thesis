@@ -6,7 +6,7 @@ class UsersController < ApplicationController
     unless(current_user != nil && current_user.is_admin?)
       render file: 'public/403', :status => :forbidden
     end
-    @users = User.all.paginate(page: params[:page], per_page: 15)
+    @users = User.all.paginate(page: params[:page], per_page: 10)
   end
 
   def make_admin
