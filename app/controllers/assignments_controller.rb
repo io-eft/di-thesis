@@ -34,7 +34,7 @@ class AssignmentsController < ApplicationController
         format.html { redirect_to @course, notice: 'Assignment was successfully created.' }
         format.json { render :show, status: :created, location: @assignment }
       else
-        format.html { render :new }
+        format.html { render :new, notice: 'Please fill in all the fields' }
         format.json { render json: @assignment.errors, status: :unprocessable_entity }
       end
     end

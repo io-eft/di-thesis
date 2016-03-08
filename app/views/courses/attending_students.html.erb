@@ -1,0 +1,29 @@
+<div class="page-header">
+  <h4 class="text-left">
+    <%= link_to course_path(@course) do %>
+      <span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span>Back To <%= "#{@course.name}" %>
+    <% end %>
+  </h4>
+  <div class="row">
+    <h1 class="text-left col-md-10">
+      <%= "#{@course.name} - Students" %>
+  </div>
+<table class="table table-hover">
+  <thead>
+  <tr>
+    <th>ID</th>
+    <th style="text-align:left;" colspan="2">Name</th>
+    <th style="text-align:left;" colspan="2">Email</th>
+  </tr>
+  </thead>
+  <tbody>
+    <% @att_std.each do |user| %>
+      <tr>
+        <td><%= user.id %></td>
+        <td colspan="2"><%= "#{user.surname} #{user.name}" %></td>
+        <td style="text-align:left;" colspan="2"><%= "#{user.email}" %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<%= will_paginate @att_std, :class => "apple_pagination" %>

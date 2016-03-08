@@ -9,30 +9,8 @@ class UsersController < ApplicationController
     @users = User.all.paginate(page: params[:page], per_page: 10)
   end
 
-  def make_admin
-    @user.add_role(:admin)
-    respond_to do |format|
-      format.js
-    end
-  end
-
-  def make_professor
-    @user.add_role(:professor)
-    respond_to do |format|
-      format.js
-    end
-  end
-
-  def make_student
-    @user.add_role(:undergrad)
-    respond_to do |format|
-      #format.html { redirect_to "/users" }
-      format.js
-    end
-  end
-
   def give_role
-    @user.add_role(@role)
+    @user.add_role(@role) unless @user.is_master_acc?
     respond_to do |format|
       format.js
     end
@@ -42,7 +20,7 @@ class UsersController < ApplicationController
   private
     def set_user
       @user = User.find(params[:user_id])
-      @user.roles = []
+      @user.roles = [] unless @user.is_master_acc?
       @role = params[:rol]
     end
 

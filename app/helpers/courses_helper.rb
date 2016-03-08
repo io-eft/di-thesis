@@ -35,6 +35,10 @@ module CoursesHelper
   end
 
   def professor_announcements(course, user_id)
-    render :partial => "announcements/professor_announcements", locals: {course: @course} if is_course_professor?(course, user_id)
+    render :partial => "announcements/professor_announcements", locals: {course: course} if is_course_professor?(course, user_id)
+  end
+
+  def add_attending_students(course, user_id)
+    render :partial => "show_attending_students", locals: {course: course} if is_course_professor?(course, user_id)
   end
 end

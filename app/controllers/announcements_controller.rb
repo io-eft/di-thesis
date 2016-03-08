@@ -9,7 +9,7 @@ class AnnouncementsController < ApplicationController
         # format.html { redirect_to @course, notice: 'Course was successfully created.' }
         # format.json { render :show, status: :created, location: @announcement }
       else
-        format.js
+        format.js { render 'error' }
         # format.html { render :new }
         # format.json { render json: @announcement.errors, status: :unprocessable_entity }
       end

@@ -35,7 +35,12 @@ for i in 1..40
   end
   u = User.create(name: Faker::Name.first_name, surname: Faker::Name.last_name, email: em, password: 'admin12345')
   u.add_role r
-  r == "professor" ? prid << u.id : usid << u.id
+  case r
+  when "professor"
+    prid << u.id
+  when "undergrad"
+    usid << u.id
+  end
 end
 
 

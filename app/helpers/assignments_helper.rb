@@ -55,10 +55,12 @@ module AssignmentsHelper
   end
 
   def get_homeworks(course, assignment, id)
-    if is_course_professor?(course, id) && !assignment.homeworks.empty?
-      render partial: "submitted_homeworks", locals: {course: course, assignment: assignment}
-    else
-      render partial: "no_submitted_homeworks"
+    if is_course_professor?(course, id)
+      if !assignment.homeworks.empty?
+        render partial: "submitted_homeworks", locals: {course: course, assignment: assignment}
+      else
+        render partial: "no_submitted_homeworks"
+      end
     end
   end
 end

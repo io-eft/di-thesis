@@ -1,10 +1,10 @@
 class CoursesController < ApplicationController
-  before_action :set_course, only: [:show, :edit, :update, :destroy, :manage, :description]
+  before_action :set_course, only: [:show, :edit, :update, :destroy, :manage, :description, :attending_students]
   before_action :verify_admin, only: [:new, :destroy]
   before_action :verify_rights, only: [:edit, :update, :manage]
   before_action :get_professors, only: [:new, :edit]
   before_action :verify_student, only: [:my_courses, :enroll, :withdraw]
-  #after_action :get_professor_names, only: [:index, :my_courses]
+  before_action :get_attending_students, only: [:attending_students]
 
   # GET /courses
   # GET /courses.json
@@ -63,6 +63,7 @@ class CoursesController < ApplicationController
         format.html { redirect_to @course, notice: 'Course was successfully created.' }
         format.json { render :show, status: :created, location: @course }
       else
+        get_professors
         format.html { render :new }
         format.json { render json: @course.errors, status: :unprocessable_entity }
       end
@@ -120,8 +121,7 @@ class CoursesController < ApplicationController
     get_professor_names
   end
 
-  def manage
-
+  def attending_students
   end
 
   # def is_course_professor?(course)
@@ -178,5 +178,11 @@ class CoursesController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def course_params
       params.require(:course).permit(:code, :name, :lecturer_id, :description)
+    end
+
+    def get_attending_students
+      @usr = []
+      StudentAttendsCourse.where(course_id: params[:course_id]).pluck(:user_id).each { |x| @usr << User.find(x) }
+      @att_std = User.where(id: @usr).paginate(page: params[:page], per_page: 10)
     end
 end

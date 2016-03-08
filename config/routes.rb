@@ -10,7 +10,7 @@ Rails.application.routes.draw do
         get "download" => "homeworks#download"
       end
     end
-    get "manage" => "courses#manage"
+    get "attending_students" => "courses#attending_students"
     post "enroll" => :enroll, as: "enroll"
     post "withdraw" => :withdraw, as: "withdraw"
     post "description" => :description, as: "description"
