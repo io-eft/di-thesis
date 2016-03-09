@@ -41,4 +41,21 @@ module CoursesHelper
   def add_attending_students(course, user_id)
     render :partial => "show_attending_students", locals: {course: course} if is_course_professor?(course, user_id)
   end
+
+  def enroll_or_withdraw(course, user)
+    if user.courses_attending.include?(course)
+      render :partial => 'withdraw', locals: {course: course}
+    else
+      render :partial => 'enroll', locals: {course: course}
+    end
+  end
+
+  def add_enroll_withdraw_if_undergrad(course, user)
+    if user.is_undergrad?
+      puts "what the fuck?"
+      enroll_or_withdraw(course, user)
+    else
+      puts "EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH????????????????"
+    end
+  end
 end

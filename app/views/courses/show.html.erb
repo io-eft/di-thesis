@@ -10,7 +10,13 @@
     <br/>
     <small><%= "#{@lecturer.surname} #{@lecturer.name}" %></small>
   </h1>
-  <%= add_attending_students(@course, current_user.id) %>
+  <div class="row">
+    <div class="col-md-8"></div>
+    <div class="col-md-4" id='<%= "course_#{@course.id}" %>'>
+      <%= add_attending_students(@course, current_user.id) %>
+      <%= add_enroll_withdraw_if_undergrad(@course, current_user) %>
+    </div>
+  </div>
 </div>
 
 <div class="container">

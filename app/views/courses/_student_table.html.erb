@@ -18,11 +18,7 @@
         <td style="text-align:right;" colspan="2"><div style="inline" id='<%= "course_#{course.id}_att" %>'><%= @attending[course.id] %></div></td>
         <td>
           <div style="inline" id='<%= "course_#{course.id}" %>'>
-            <% if(@enrolled.include?(course.id)) %>
-              <%= render :partial => 'withdraw', locals: {course: course} %>
-            <% else %>
-              <%= render :partial => 'enroll', locals: {course: course} %>
-            <% end %>
+            <%= enroll_or_withdraw(course, current_user) %>
           </div>
         </td>
       </tr>

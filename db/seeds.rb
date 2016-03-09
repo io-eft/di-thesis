@@ -22,6 +22,7 @@ users = User.create([
   prid = [users[2].id, users[4].id]
 
 for i in 1..40
+    r = ""
   case rand(3)
   when 0
     em = "professor#{prof += 1}@di.uoa.gr"
@@ -34,6 +35,7 @@ for i in 1..40
     r = "admin"
   end
   u = User.create(name: Faker::Name.first_name, surname: Faker::Name.last_name, email: em, password: 'admin12345')
+  u.roles = []
   u.add_role r
   case r
   when "professor"

@@ -1,4 +1,17 @@
-<h1 class="pull-left"><%= "#{@assignment.title}" %></h1>
+<div class="page-header">
+  <h4 class="text-left">
+    <%= link_to course_assignment_path(@course, @assignment) do %>
+      <span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span>Back To <%= "#{@assignment.title}" %>
+    <% end %>
+  </h4>
+  <div class="row">
+    <h1 class="text-left col-md-10">
+      <%= "#{@assignment.title}" %>
+      <br/>
+      <small>Homework Submissions</small>
+    </h1>
+  </div>
+</div>
 <table class="table table-hover">
   <thead>
   <tr>
