@@ -14,8 +14,8 @@
       <tr>
         <td><%= course.code %></td>
         <td colspan="2"><%= link_to course.name, course %></td>
-        <td style="text-align:left;" colspan="2"><%= "#{@professors[course.id].surname} #{@professors[course.id].name}" %></td>
-        <td style="text-align:right;" colspan="2"><div style="inline" id='<%= "course_#{course.id}_att" %>'><%= @attending[course.id] %></div></td>
+        <td style="text-align:left;" colspan="2"><%= "#{course.lecturer.surname} #{course.lecturer.name}" %></td>
+        <td style="text-align:right;" colspan="2"><div style="inline" id='<%= "course_#{course.id}_att" %>'><%= course.students.count %></div></td>
         <td>
           <div style="inline" id='<%= "course_#{course.id}" %>'>
             <%= enroll_or_withdraw(course, current_user) %>
@@ -25,4 +25,4 @@
   <% end %>
   </tbody>
 </table>
-<%= will_paginate @courses %>
+<%= will_paginate @courses, :class => "apple_pagination"  %>

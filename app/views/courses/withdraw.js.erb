@@ -1,2 +1,2 @@
-$('<%= "#course_#{@course.id}_att" %>').html('<%= "#{@attending}" %>');
+$('<%= "#course_#{@course.id}_att" %>').html('<%= "#{@course.students.count}" %>');
 $('<%= "#course_#{@course.id}" %>').html("<%= escape_javascript(render :partial => 'enroll', locals: {course: @course}) %>")

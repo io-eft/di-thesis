@@ -3,7 +3,7 @@ class CoursesController < ApplicationController
   before_action :verify_admin, only: [:new, :destroy]
   before_action :verify_rights, only: [:edit, :update, :manage]
   before_action :get_professors, only: [:new, :edit]
-  before_action :verify_student, only: [:my_courses, :enroll, :withdraw]
+  before_action :verify_student, only: [:enroll, :withdraw]
   before_action :get_attending_students, only: [:attending_students]
 
   # GET /courses
@@ -14,16 +14,15 @@ class CoursesController < ApplicationController
     end
     @courses = Course.all.paginate(page: params[:page], per_page: 10)
     #@professors = {}
-    @attending = {}
-    @courses.each do |c|
+    #@attending = {}
+    #@courses.each do |c|
     #  @professors[c.id] = User.find(c.lecturer_id) unless c.lecturer_id == nil
-      @attending[c.id] = StudentAttendsCourse.where(course_id: c.id).count
-    end
-    get_professor_names
+      #@attending[c.id] = StudentAttendsCourse.where(course_id: c.id).count
+    #end
 
-    if(current_user != nil && current_user.is_undergrad?)
-      @enrolled = StudentAttendsCourse.where(user_id: current_user.id).pluck(:course_id)
-    end
+    # if(current_user != nil && current_user.is_undergrad?)
+    #   @enrolled = StudentAttendsCourse.where(user_id: current_user.id).pluck(:course_id)
+    # end
   end
 
   # GET /courses/1
@@ -87,7 +86,7 @@ class CoursesController < ApplicationController
   def enroll
     @course = Course.find(params[:course_id])
     StudentAttendsCourse.create(course_id: @course.id, user_id: current_user.id)
-    @attending = StudentAttendsCourse.where(course_id: @course.id).count
+    #@attending = StudentAttendsCourse.where(course_id: @course.id).count
       respond_to do |format|
         format.html { redirect_to "/courses" }
         format.js
@@ -99,7 +98,7 @@ class CoursesController < ApplicationController
     StudentAttendsCourse.where(course_id: @course.id, user_id: current_user.id).each do |s|
       s.delete
     end
-    @attending = StudentAttendsCourse.where(course_id: @course.id).count
+    #@attending = StudentAttendsCourse.where(course_id: @course.id).count
       respond_to do |format|
         format.html { redirect_to "/courses" }
         format.js
@@ -117,8 +116,14 @@ class CoursesController < ApplicationController
   end
 
   def my_courses
-    @courses = Course.where(id: StudentAttendsCourse.where(user_id: current_user.id).pluck(:course_id)).paginate(page: params[:page], per_page: 10)
-    get_professor_names
+    if current_user.is_professor?
+      @courses = current_user.courses_teaching.paginate(page: params[:page], per_page: 10)
+      render 'my_courses_professor'
+    elsif current_user.is_undergrad?
+      @courses = current_user.courses_attending.paginate(page: params[:page], per_page: 10)
+      render 'my_courses'
+    end
+
   end
 
   def attending_students
@@ -181,8 +186,9 @@ class CoursesController < ApplicationController
     end
 
     def get_attending_students
-      @usr = []
-      StudentAttendsCourse.where(course_id: params[:course_id]).pluck(:user_id).each { |x| @usr << User.find(x) }
-      @att_std = User.where(id: @usr).paginate(page: params[:page], per_page: 10)
+      # @usr = []
+      # StudentAttendsCourse.where(course_id: params[:course_id]).pluck(:user_id).each { |x| @usr << User.find(x) }
+      # @att_std = User.where(id: @usr).paginate(page: params[:page], per_page: 10)
+      @att_std = Course.find(params[:course_id]).students.paginate(page: params[:page], per_page: 10)
     end
 end

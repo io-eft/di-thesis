@@ -55,7 +55,7 @@
               <%= best_in_place_if is_course_professor?(@course, current_user.id), ann, :title, :url => course_announcement_path(@course, ann),
               :ok_button => "Submit", :ok_button_class => "btn btn-success bip-button",
               :cancel_button => "Cancel", :cancel_button_class => "btn btn-danger bip-button",
-              :html_attrs => { :cols => 100 } %>
+              :html_attrs => { :style => "width: 30%;" } %>
               <div class="pull-right">
                 <%= ann.updated_at.strftime("%m/%d/%Y") %>
               </div>
