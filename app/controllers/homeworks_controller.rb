@@ -1,4 +1,5 @@
 class HomeworksController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_course, only: [:create, :update, :index]
   before_action :set_assignment, only: [:create, :update, :index]
   before_action :set_homework, only: [:update]

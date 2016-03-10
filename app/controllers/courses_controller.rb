@@ -1,4 +1,5 @@
 class CoursesController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_course, only: [:show, :edit, :update, :destroy, :manage, :description, :attending_students]
   before_action :verify_admin, only: [:new, :destroy]
   before_action :verify_rights, only: [:edit, :update, :manage]
@@ -13,23 +14,11 @@ class CoursesController < ApplicationController
       render file: 'public/403', :status => :forbidden
     end
     @courses = Course.all.paginate(page: params[:page], per_page: 10)
-    #@professors = {}
-    #@attending = {}
-    #@courses.each do |c|
-    #  @professors[c.id] = User.find(c.lecturer_id) unless c.lecturer_id == nil
-      #@attending[c.id] = StudentAttendsCourse.where(course_id: c.id).count
-    #end
-
-    # if(current_user != nil && current_user.is_undergrad?)
-    #   @enrolled = StudentAttendsCourse.where(user_id: current_user.id).pluck(:course_id)
-    # end
   end
 
   # GET /courses/1
   # GET /courses/1.json
   def show
-    @lecturer = User.find(@course.lecturer_id)
-    #@announcements = @course.announcements
   end
 
   # GET /courses/new
@@ -86,7 +75,6 @@ class CoursesController < ApplicationController
   def enroll
     @course = Course.find(params[:course_id])
     StudentAttendsCourse.create(course_id: @course.id, user_id: current_user.id)
-    #@attending = StudentAttendsCourse.where(course_id: @course.id).count
       respond_to do |format|
         format.html { redirect_to "/courses" }
         format.js
@@ -98,7 +86,6 @@ class CoursesController < ApplicationController
     StudentAttendsCourse.where(course_id: @course.id, user_id: current_user.id).each do |s|
       s.delete
     end
-    #@attending = StudentAttendsCourse.where(course_id: @course.id).count
       respond_to do |format|
         format.html { redirect_to "/courses" }
         format.js
@@ -123,20 +110,10 @@ class CoursesController < ApplicationController
       @courses = current_user.courses_attending.paginate(page: params[:page], per_page: 10)
       render 'my_courses'
     end
-
   end
 
   def attending_students
   end
-
-  # def is_course_professor?(course)
-  #   if(!current_user.nil? && current_user.id == course.lecturer_id)
-  #     return true;
-  #   else
-  #     return false;
-  #   end
-  # end
-  # helper_method :is_course_professor?
 
   private
     # Use callbacks to share common setup or constraints between actions.
@@ -159,7 +136,6 @@ class CoursesController < ApplicationController
 
     def get_professors
       professors = User.with_role :professor
-      #professors.sort! { |a, b| a.surname <=> b.surname }
       @professors = []
       professors.each do |a|
         @professors << ["#{a.surname} #{a.name}", a.id]
@@ -173,22 +149,12 @@ class CoursesController < ApplicationController
       end
     end
 
-    def get_professor_names
-      @professors = {}
-      @courses.each do |c|
-        @professors[c.id] = User.find(c.lecturer_id) unless c.lecturer_id == nil
-      end
-    end
-
     # Never trust parameters from the scary internet, only allow the white list through.
     def course_params
       params.require(:course).permit(:code, :name, :lecturer_id, :description)
     end
 
     def get_attending_students
-      # @usr = []
-      # StudentAttendsCourse.where(course_id: params[:course_id]).pluck(:user_id).each { |x| @usr << User.find(x) }
-      # @att_std = User.where(id: @usr).paginate(page: params[:page], per_page: 10)
       @att_std = Course.find(params[:course_id]).students.paginate(page: params[:page], per_page: 10)
     end
 end

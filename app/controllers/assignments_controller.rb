@@ -1,4 +1,5 @@
 class AssignmentsController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_course
   before_action :set_assignment, only: [:show, :edit, :update, :destroy, :add_document]
   before_action :set_document, only: [:download]
@@ -16,7 +17,6 @@ class AssignmentsController < ApplicationController
 
   # GET /assignments/new
   def new
-    #@assignment = Assignment.new
     @assignment = @course.assignments.build
   end
 
@@ -28,7 +28,6 @@ class AssignmentsController < ApplicationController
   # POST /assignments.json
   def create
     @assignment = @course.assignments.new(assignment_params)
-    #@assignment.documents.last.name = @assignment.documents.last.doc
     respond_to do |format|
       if @assignment.save
         format.html { redirect_to @course, notice: 'Assignment was successfully created.' }
@@ -68,7 +67,6 @@ class AssignmentsController < ApplicationController
 
   def download
     send_file "#{Rails.root}/public/#{@doc.doc}"
-    #send_file "#{Rails.root}/public/uploads/document/doc/#{@course.id}/#{@assignment.id}/#{@doc.doc}"
   end
 
   private
@@ -80,7 +78,6 @@ class AssignmentsController < ApplicationController
     def set_assignment
       id = params[:id].nil? ? params[:assignment_id] : params[:id]
       @assignment = Assignment.find(id)
-      #@assignment = Assignment.find(params[:id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

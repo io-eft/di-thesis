@@ -1,4 +1,5 @@
 class DocumentsController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_course
   before_action :set_assignment
   before_action :set_document, only: [:update, :destroy]
