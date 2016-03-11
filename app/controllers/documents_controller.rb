@@ -20,11 +20,16 @@ class DocumentsController < ApplicationController
   def add_document
     @new_doc = @assignment.documents.new(document_params)
     respond_to do |format|
-      if @new_doc.save
-        format.html { redirect_to course_assignment_path(@course, @assignment), notice: "Document Added!"}
-        format.js
-      else
-        redirect_to @assignment, notice: "There has been an error adding the document"
+      begin
+        if @new_doc.save
+          format.html { redirect_to course_assignment_path(@course, @assignment), notice: "Document Added!"}
+          format.js
+        else
+          redirect_to course_assignment_path(@course, @assignment), notice: "There has been an error adding the document"
+        end
+      rescue StandardError
+        format.html {redirect_to course_assignment_path(@course, @assignment),
+                      notice: "A document with the same filename already exists for this assignment"}
       end
     end
   end

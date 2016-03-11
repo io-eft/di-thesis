@@ -25,5 +25,14 @@
 var fancybox = function(){
     $(".fancybox").fancybox();
 };
+// var hideNotice = function() {
+//   $('#notice').hide();
+// }
+
+$('#notice').on(click, function(){
+  alert('jere');
+  $('#notice').hide();
+});
 
 $(document).on("page:load ready", fancybox);
+// $(document).on("page:load ready", hideNotice);

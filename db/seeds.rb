@@ -45,6 +45,9 @@ for i in 1..40
   end
 end
 
+for i in 1..4
+  users[i].roles = []
+end
 
 users[0].add_role :admin
 users[2].add_role :professor

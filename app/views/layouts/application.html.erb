@@ -11,6 +11,7 @@
     <%= render 'layouts/header' %>
     <div class="row">
       <div class="container">
+        <div id="notice" class="alert"><%= notice %></div>
         <%= yield %>
         <%= debug(params) if (Rails.env.development?) && false %>
       </div>

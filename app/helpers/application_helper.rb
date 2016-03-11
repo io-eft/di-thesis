@@ -17,4 +17,5 @@ module ApplicationHelper
       render partial: 'role', locals: { user: user, role: role}
     end
   end
+
 end

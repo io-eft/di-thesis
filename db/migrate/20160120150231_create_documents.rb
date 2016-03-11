@@ -7,5 +7,7 @@ class CreateDocuments < ActiveRecord::Migration
 
       t.timestamps null: false
     end
+
+  add_index(:documents, [ :assignment_id, :doc ], unique: true)
   end
 end

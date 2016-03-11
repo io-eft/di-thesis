@@ -51,6 +51,7 @@ ActiveRecord::Schema.define(version: 20160227214844) do
     t.datetime "updated_at",    null: false
   end
 
+  add_index "documents", ["assignment_id", "doc"], name: "index_documents_on_assignment_id_and_doc", unique: true
   add_index "documents", ["assignment_id"], name: "index_documents_on_assignment_id"
 
   create_table "homeworks", force: :cascade do |t|

@@ -51,11 +51,6 @@ module CoursesHelper
   end
 
   def add_enroll_withdraw_if_undergrad(course, user)
-    if user.is_undergrad?
-      puts "what the fuck?"
-      enroll_or_withdraw(course, user)
-    else
-      puts "EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH????????????????"
-    end
+    enroll_or_withdraw(course, user) if user.is_undergrad?
   end
 end
